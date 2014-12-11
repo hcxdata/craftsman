@@ -1,0 +1,14 @@
+#ignore these files
+target/*
+target-grunt/*
+
+logs/*
+
+.settings/*
+.project
+.classpath
+.metadata
+spy.log
+
+.DS_Store
+.swp
