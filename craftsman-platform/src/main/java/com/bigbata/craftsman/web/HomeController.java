@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.bigbata.craftsman.web.controller;
+package com.bigbata.craftsman.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

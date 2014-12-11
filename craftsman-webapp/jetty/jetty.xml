@@ -32,7 +32,7 @@
 
 	<Set name="handler">
 		<New class="org.eclipse.jetty.webapp.WebAppContext">
-			<Set name="contextPath">/bimp</Set>
+			<Set name="contextPath">/</Set>
 			<Set name="war">src/main/webapp</Set>
 		</New>
 	</Set>
