@@ -13,16 +13,17 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 
 /**
- * 类说明:<br> 
- * 创建时间: 2014年12月11日 上午10:37:32<br> 
- * @author 刘岩松<br> 
+ * 类说明:<br>
+ * 创建时间: 2014年12月11日 上午10:37:32<br>
+ * 
+ * @author 刘岩松<br>
  * @email yansong.lau@gmail.com<br>
  */
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.bigbata.craftsman.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
-	
+
 	@Bean
 	public ViewResolver viewResolver() {
 		InternalResourceViewResolver resolver = new InternalResourceViewResolver();
@@ -31,9 +32,10 @@ public class WebConfig extends WebMvcConfigurerAdapter {
 		resolver.setExposeContextBeansAsAttributes(true);
 		return resolver;
 	}
-	
+
 	@Override
-	public void configureDefaultServletHandling(DefaultServletHandlerConfigurer configurer) {
+	public void configureDefaultServletHandling(
+			DefaultServletHandlerConfigurer configurer) {
 		configurer.enable();
 	}
 

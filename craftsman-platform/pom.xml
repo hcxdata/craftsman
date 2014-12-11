@@ -120,19 +120,17 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
-
-		<!-- ================================= Test Scopes ================================= -->
+		<!-- ==== Test Scopes ==== -->
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<version>4.8.2</version>
+			<version>4.12</version>
 			<scope>test</scope>
 		</dependency>
 	</dependencies>
 
 	<properties>
 		<spring-version>4.1.2.RELEASE</spring-version>
-		<jetty-version>6.1.17</jetty-version>
 	</properties>
 
 </project>
