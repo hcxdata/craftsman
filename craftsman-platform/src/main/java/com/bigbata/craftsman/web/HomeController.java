@@ -5,6 +5,7 @@ package com.bigbata.craftsman.web;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 /** 
  * 类说明:<br> 
@@ -13,9 +14,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
  * @email yansong.lau@gmail.com<br>  
  */
 @Controller
+@RequestMapping({"/", "/homepage"})
 public class HomeController {
 
-	@RequestMapping("/")
+	@RequestMapping(method = RequestMethod.GET)
 	public String home() {
 		return "home";
 	}
