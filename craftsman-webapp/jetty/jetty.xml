@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<!DOCTYPE Configure PUBLIC "-//Jetty//Configure//EN" "http://www.eclipse.org/jetty/configure_9_0.dtd">
+
+<Configure id="Server" class="org.eclipse.jetty.server.Server">
+
+	<Arg name="threadpool">
+		<New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+			<Arg type="java.lang.Integer" name="maxThreads">200</Arg>
+			<Arg type="java.lang.Integer" name="minThreads">50</Arg>
+			<Arg type="java.lang.Integer" name="idleTimeout">1000</Arg>
+			<Arg name="queue">
+				<New class="java.util.concurrent.ArrayBlockingQueue">
+					<Arg type="java.lang.Integer">6000</Arg>
+				</New>
+			</Arg>
+			<Set name="detailedDump">false</Set>
+		</New>
+	</Arg>
+
+	<Call name="addConnector">
+		<Arg>
+			<New class="org.eclipse.jetty.server.ServerConnector">
+				<Arg name="server">
+					<Ref refid="Server" />
+				</Arg>
+				<Set name="port">
+					<Property name="jetty.port" default="8090" />
+				</Set>
+			</New>
+		</Arg>
+	</Call>
+
+	<Set name="handler">
+		<New class="org.eclipse.jetty.webapp.WebAppContext">
+			<Set name="contextPath">/bimp</Set>
+			<Set name="war">src/main/webapp</Set>
+		</New>
+	</Set>
+
+</Configure>
