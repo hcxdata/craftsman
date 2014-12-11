@@ -1,10 +1,10 @@
 #ignore these files
-/target/*
-/target-grunt/*
+*/target/*
+*/target-grunt/*
 
-/logs/*
+*/logs/*
 
-/.settings/*
+*/.settings/*
 .project
 .classpath
 .metadata
