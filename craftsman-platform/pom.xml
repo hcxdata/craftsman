@@ -120,6 +120,24 @@
 			<artifactId>log4j</artifactId>
 			<version>1.2.14</version>
 		</dependency>
+		<!-- ORM HIBERNATE JPA -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-entitymanager</artifactId>
+			<version>4.3.7.Final</version>
+		</dependency>		
+		<!-- ORM HIBERNATE CORE -->
+		<dependency>
+			<groupId>org.hibernate</groupId>
+			<artifactId>hibernate-core</artifactId>
+			<version>4.3.7.Final</version>
+		</dependency>
+		<!-- EMBEDDED RDBMS -->
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.4.182</version>
+		</dependency>
 		<!-- JETTY DEPENDENCIES -->
 		<dependency>
 			<groupId>org.eclipse.jetty</groupId>
