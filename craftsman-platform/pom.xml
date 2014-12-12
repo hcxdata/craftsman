@@ -136,12 +136,6 @@
 			<artifactId>hibernate-entitymanager</artifactId>
 			<version>4.3.7.Final</version>
 		</dependency>		
-		<!-- ORM HIBERNATE CORE -->
-		<dependency>
-			<groupId>org.hibernate</groupId>
-			<artifactId>hibernate-core</artifactId>
-			<version>4.3.7.Final</version>
-		</dependency>
 		<!-- EMBEDDED RDBMS -->
 		<dependency>
 			<groupId>com.h2database</groupId>
