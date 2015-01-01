@@ -9,27 +9,31 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/** 
- * 类说明:<br> 
- * 创建时间: 2014年12月31日 下午6:59:57<br> 
- * @author 刘岩松<br> 
- * @email yansong.lau@gmail.com<br>  
+/**
+ * 类说明:<br>
+ * 创建时间: 2014年12月31日 下午6:59:57<br>
+ * 
+ * @author 刘岩松<br>
+ * @email yansong.lau@gmail.com<br>
  */
 @Entity
 @Table(name = "SMS_MESSAGE")
 public class SmsMessage {
-	
-	private Integer id;
-	
-	private String smsContent;
-	
-	private String remoteNumber;
-	
-	private String smsTime;
 
 	@Id
 	@GeneratedValue
 	@Column(name = "ID")
+	private Integer id;
+
+	@Column(name = "SMS_CONTENT", nullable = false)
+	private String smsContent;
+
+	@Column(name = "REMOTE_NUMBER", nullable = false)
+	private String remoteNumber;
+
+	@Column(name = "SMS_TIME")
+	private String smsTime;
+
 	public Integer getId() {
 		return id;
 	}
@@ -68,5 +72,5 @@ public class SmsMessage {
 				+ ", remoteNumber=" + remoteNumber + ", smsTime=" + smsTime
 				+ "]";
 	}
-	
+
 }

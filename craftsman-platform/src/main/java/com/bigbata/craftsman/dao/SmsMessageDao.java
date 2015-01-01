@@ -25,7 +25,7 @@ import com.bigbata.craftsman.dao.model.SmsMessage;
 @Transactional(propagation = Propagation.REQUIRED)
 public class SmsMessageDao {
 
-	private static final String SELECT_QUERY = "from SmsMessage";
+	private static final String SELECT_QUERY = "select s from SmsMessage s";
 	
 	@PersistenceContext
 	private EntityManager entityManager;
