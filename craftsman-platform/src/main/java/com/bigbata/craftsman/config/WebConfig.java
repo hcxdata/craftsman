@@ -19,9 +19,9 @@ import org.springframework.web.servlet.view.InternalResourceViewResolver;
  * @author 刘岩松<br>
  * @email yansong.lau@gmail.com<br>
  */
-@Configuration
-@EnableWebMvc
-@ComponentScan("com.bigbata.craftsman.web")
+//@Configuration
+//@EnableWebMvc
+//@ComponentScan("com.bigbata.craftsman.web")
 public class WebConfig extends WebMvcConfigurerAdapter {
 
 	@Bean

@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  * @author 刘岩松<br> 
  * @email yansong.lau@gmail.com<br>  
  */
-@Configuration
-@EnableWebSecurity
+// @Configuration
+// @EnableWebSecurity
 public class SecurityConfig {
 
 }
