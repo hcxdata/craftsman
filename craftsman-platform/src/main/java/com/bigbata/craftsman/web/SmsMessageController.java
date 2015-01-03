@@ -19,7 +19,7 @@ import com.bigbata.craftsman.service.SmsMessageService;
  * @email yansong.lau@gmail.com<br>
  */
 @Controller
-@RequestMapping({ "/", "/smsMessages" })
+@RequestMapping({ "/smsMessages" })
 public class SmsMessageController {
 
 	private SmsMessageService smsMessageService;
