@@ -3,8 +3,8 @@
  */
 package com.bigbata.craftsman.config;
 
-import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+// import org.springframework.context.annotation.Configuration;
+// import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 
 /** 
  * 类说明:<br> 
@@ -12,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
  * @author 刘岩松<br> 
  * @email yansong.lau@gmail.com<br>  
  */
-@Configuration
-@EnableWebSecurity
+// @Configuration
+// @EnableWebSecurity
 public class SecurityConfig {
 
 }
