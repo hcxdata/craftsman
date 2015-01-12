@@ -1,0 +1,33 @@
+<taglib>
+	<tlib-version>1.0</tlib-version>
+	<jsp-version>2.0</jsp-version>
+	<short-name>ex</short-name>
+	<tag>
+		<name>page</name>
+		<tag-class>com.neteast.ifm.tag.PageTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			自定义分页组件，用于生成分页工具条
+		</description>
+		<attribute>
+			<name>page</name>
+			<required>true</required>
+			<type>com.neteast.ifm.system.page.Page</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+	<tag>
+		<name>altMsg</name>
+		<tag-class>com.neteast.ifm.tag.AlertMsgTag</tag-class>
+		<body-content>empty</body-content>
+		<description>
+			提示框
+		</description>
+		<attribute>
+			<name>name</name>
+			<required>false</required>
+			<type>java.lang.String</type>
+			<rtexprvalue>true</rtexprvalue>
+		</attribute>
+	</tag>
+</taglib>
