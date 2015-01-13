@@ -38,8 +38,7 @@
 								<div class="dataTables_paginate paging_simple_numbers">
 									<ul class="pagination pagination-sm">
 										<li>
-											<button class="btn btn-default"
-												data-url="<%=path%>/deviceMgr/new">添加</button>
+											<a  class="btn btn-default" ng-href="#/new">添加</a>
 										</li>
 									</ul>
 								</div>
@@ -58,7 +57,7 @@
 							<tbody>
 								<tr ng-repeat="user in users track by $index">
 									<td>{{user.name}}</td>
-									<td>修改 | 删除</td>
+									<td><a ng-href="#/{{user.id}}/edit">修改</a> | <a ng-href="#/{{user.id}}/del">删除</a></td>
 								</tr>
 							</tbody>
 						</table>
