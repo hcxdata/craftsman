@@ -36,11 +36,27 @@
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/web/*</url-pattern>
 	</servlet-mapping>
-	
+
 	<servlet-mapping>
 		<servlet-name>dispatcherServlet</servlet-name>
 		<url-pattern>/api/*</url-pattern>
 	</servlet-mapping>
+
+	<!-- Spring Security -->
+
+	<filter>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/web/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
+		<filter-name>springSecurityFilterChain</filter-name>
+		<url-pattern>/api/*</url-pattern>
+	</filter-mapping>
 	
 	<jsp-config>
 		<jsp-property-group>
