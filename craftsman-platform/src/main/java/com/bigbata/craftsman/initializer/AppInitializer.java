@@ -9,6 +9,7 @@ import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.ContextLoaderListener;
 import org.springframework.web.context.WebApplicationContext;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
+import org.springframework.web.filter.CharacterEncodingFilter;
 import org.springframework.web.filter.DelegatingFilterProxy;
 import org.springframework.web.servlet.DispatcherServlet;
 
@@ -22,8 +23,7 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class AppInitializer implements WebApplicationInitializer {
 
 	private static final String CONFIG_LOCATION = "com.bigbata.craftsman.config";
-	private static final String WEB_MAPPING_URL = "/web/*";
-	private static final String API_MAPPING_URL = "/api/*";
+	private static final String MAPPING_URL = "/";
 
 	@Override
 	public void onStartup(ServletContext servletContext)
@@ -35,15 +35,20 @@ public class AppInitializer implements WebApplicationInitializer {
 		ServletRegistration.Dynamic dispatcher = servletContext.addServlet(
 				"DispatcherServlet", new DispatcherServlet(context));
 		dispatcher.setLoadOnStartup(1);
-		dispatcher.addMapping(WEB_MAPPING_URL);
-		dispatcher.addMapping(API_MAPPING_URL);
+		dispatcher.addMapping(MAPPING_URL);
 
 		// security 过滤配置
 		FilterRegistration.Dynamic filter = servletContext.addFilter(
 				"springSecurityFilterChain", new DelegatingFilterProxy(
 						"springSecurityFilterChain"));
-		filter.addMappingForUrlPatterns(null, false, WEB_MAPPING_URL);
-		filter.addMappingForUrlPatterns(null, false, API_MAPPING_URL);
+		filter.addMappingForUrlPatterns(null, false, "/web/*");
+		
+		// characterEncoding
+		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
+		characterEncodingFilter.setEncoding("UTF-8");
+		FilterRegistration.Dynamic encodingFilter = servletContext.addFilter(
+				"characterEncodingFilter", characterEncodingFilter);
+		encodingFilter.addMappingForUrlPatterns(null, false, "/*");
 
 	}
 

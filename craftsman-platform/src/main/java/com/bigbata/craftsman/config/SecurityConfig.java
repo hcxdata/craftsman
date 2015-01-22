@@ -10,6 +10,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import com.bigbata.craftsman.config.security.SecurityService;
 import com.bigbata.craftsman.securityHandler.AuthFailureHandler;
 import com.bigbata.craftsman.securityHandler.AuthSuccessHandler;
 import com.bigbata.craftsman.securityHandler.HttpAuthenticationEntryPoint;
@@ -31,13 +32,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	private AuthFailureHandler authFailureHandler;
 	@Autowired
 	private HttpAuthenticationEntryPoint authenticationEntryPoint;
+	@Autowired
+	SecurityService securityService;
 
 	@Autowired
 	public void configureGlobal(AuthenticationManagerBuilder auth)
 			throws Exception {
-		auth.inMemoryAuthentication().withUser("user").password("password")
-				.roles("USER").and().withUser("admin").password("password")
-				.roles("ADMIN", "USER");
+		auth.userDetailsService(securityService);
 	}
 
 	@Override
@@ -52,7 +53,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 				.authorizeRequests()
 				.antMatchers("/web/login", "/web/login/form", "/web/logout",
 						"/web/signup", "/web/about").permitAll()
-				.antMatchers("/web/**", "/api/**").hasRole("ADMIN")
+				.antMatchers("/web/**", "/api/**").hasAuthority("ADMIN")
 				.anyRequest().authenticated().and().formLogin()
 				.loginPage("/web/login/form").loginProcessingUrl("/web/login")
 				.successHandler(authSuccessHandler)
