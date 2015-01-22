@@ -15,8 +15,11 @@ angular.module('app.controllers', []).controller('IndexController',
 			}
 		}).controller('EditController',
 		function($scope, $location, $routeParams, userService) {
-			$scope.user = userService.get({
+			userService.get({
 				id : $routeParams.id
+			},function(user){
+				$scope.user = user;
+				$('#confimPassWord').val(user.password);
 			});
 			$scope.save = function() {
 				userService.update($scope.user, function() {

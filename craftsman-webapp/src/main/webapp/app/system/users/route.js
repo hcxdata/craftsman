@@ -2,13 +2,13 @@
 angular.module('app.route', [ 'ngRoute' ]).config(
 		function($routeProvider, $locationProvider) {
 			var index = {
-				templateUrl : 'app/main/index.html',
+				templateUrl : '/app/system/users/index.html',
 				controller : 'IndexController'
 			}, news = {
-				templateUrl : 'app/main/new.html',
+				templateUrl : '/app/system/users/new.html',
 				controller : 'NewController'
 			}, edit = {
-				templateUrl : 'app/main/new.html',
+				templateUrl : '/app/system/users/new.html',
 				controller : 'EditController'
 			}, del = {
 				template : ' ',

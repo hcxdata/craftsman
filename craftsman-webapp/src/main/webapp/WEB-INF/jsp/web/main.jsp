@@ -4,7 +4,6 @@
 <head>
 <title></title>
 <%@ include file="/WEB-INF/jsp/frame/inc/head.jsp"%>
-<base href="/web">
 </head>
 <body>
 	<%@ include file="/WEB-INF/jsp/frame/structure/header.jsp"%>
@@ -20,9 +19,9 @@
 		<!-- END MAIN CONTENT -->
 	</div>
 	<%@ include file="/WEB-INF/jsp/frame/inc/bottom.jsp"%>
-	<script src="<%=path%>/app/main/app.js"></script>
-	<script src="<%=path%>/app/main/route.js"></script>
-	<script src="<%=path%>/app/main/controllers.js"></script>
-	<script src="<%=path%>/app/main/services.js"></script>
+	<script src="<%=path%>/app/system/users/app.js"></script>
+	<script src="<%=path%>/app/system/users/route.js"></script>
+	<script src="<%=path%>/app/system/users/controllers.js"></script>
+	<script src="<%=path%>/app/system/users/services.js"></script>
 </body>
 </html>
