@@ -1,8 +1,8 @@
 'use strict';
 angular.module(
 		'app',
-		[ 'ngRoute', 'ngResource', 'app.route', 'app.controllers',
-				'app.services' ]).config(function($httpProvider) {
+		[ 'pasvaz.bindonce','ngRoute', 'ngResource', 'app.route', 'app.controllers',
+				'app.services']).config(function($httpProvider) {
 	$httpProvider.interceptors.push(function($q) {
 		return {
 			request : function(config) {

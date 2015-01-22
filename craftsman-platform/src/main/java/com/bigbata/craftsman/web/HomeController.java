@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RequestMethod;
  * @email yansong.lau@gmail.com<br>
  */
 @Controller
-@RequestMapping({ "/", "/homepage" })
+@RequestMapping({ "/"})
 public class HomeController {
 
 	@RequestMapping(method = RequestMethod.GET)
 	public String home() {
-		return "home";
+		return "index";
 	}
 
 }
