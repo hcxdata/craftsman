@@ -4,6 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,8 +27,9 @@ public class UsersApi {
 	private UserDao userDao;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<User> index() {
-		return userDao.findAll();
+	public Page<User> index(@PageableDefault Pageable pageable) {
+		Page<User> users = userDao.findAll(pageable);
+		return users;
 	}
 
 	@RequestMapping(value = "/{id}", method = RequestMethod.GET)
