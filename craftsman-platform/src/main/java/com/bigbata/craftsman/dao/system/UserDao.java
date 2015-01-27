@@ -1,10 +1,10 @@
 package com.bigbata.craftsman.dao.system;
 
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import com.bigbata.craftsman.dao.model.system.User;
 
-public interface UserDao extends JpaRepository<User, Long> {
+public interface UserDao extends PagingAndSortingRepository<User, Long> {
 	
 	public User findUserByName(String name);
 }

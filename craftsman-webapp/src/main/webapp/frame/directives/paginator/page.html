@@ -1,0 +1,14 @@
+<div class="dataTables_paginate paging_simple_numbers">
+    <ul class="pagination pagination-sm">
+        <li ng-hide="page.isFirst()" class="paginate_button previous"><a ng-click="page.firstPage()">First</a></li>
+        <li ng-hide="page.isFirst()" class="paginate_button previous"><a ng-click="page.pre()">Previous</a></li>
+        <li ng-show="page.getNumber() + 1 - index > 0" ng-repeat="index in [4,3,2,1]" class="paginate_button"><a
+                ng-click="page.goto(page.getNumber() - index)">{{page.number + 1 - index}}</a></li>
+        <li class="paginate_button active"><a click="javascript:void(0)">{{page.number+1}}</a></li>
+        <li ng-show="page.getNumber() + index < page.getTotalPages()" ng-repeat="index in [1,2,3,4]"
+            class="paginate_button"><a ng-click="page.goto(page.getNumber() + index)">{{page.number + 1 + index}}</a>
+        </li>
+        <li ng-hide="page.isLast()" class="paginate_button next"><a ng-click="page.next()">next</a></li>
+        <li ng-hide="page.isLast()" class="paginate_button next"><a ng-click="page.lastPage()">last</a></li>
+    </ul>
+</div>

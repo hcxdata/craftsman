@@ -3,56 +3,56 @@
 
 <Configure id="Server" class="org.eclipse.jetty.server.Server">
 
-	<Arg name="threadpool">
-		<New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
-			<Arg type="java.lang.Integer" name="maxThreads">200</Arg>
-			<Arg type="java.lang.Integer" name="minThreads">50</Arg>
-			<Arg type="java.lang.Integer" name="idleTimeout">1000</Arg>
-			<Arg name="queue">
-				<New class="java.util.concurrent.ArrayBlockingQueue">
-					<Arg type="java.lang.Integer">6000</Arg>
-				</New>
-			</Arg>
-			<Set name="detailedDump">false</Set>
-		</New>
-	</Arg>
+    <Arg name="threadpool">
+        <New id="threadpool" class="org.eclipse.jetty.util.thread.QueuedThreadPool">
+            <Arg type="java.lang.Integer" name="maxThreads">200</Arg>
+            <Arg type="java.lang.Integer" name="minThreads">50</Arg>
+            <Arg type="java.lang.Integer" name="idleTimeout">1000</Arg>
+            <Arg name="queue">
+                <New class="java.util.concurrent.ArrayBlockingQueue">
+                    <Arg type="java.lang.Integer">6000</Arg>
+                </New>
+            </Arg>
+            <Set name="detailedDump">false</Set>
+        </New>
+    </Arg>
 
-	<Call name="addConnector">
-		<Arg>
-			<New class="org.eclipse.jetty.server.ServerConnector">
-				<Arg name="server">
-					<Ref refid="Server" />
-				</Arg>
-				<Set name="port">
-					<Property name="jetty.port" default="8090" />
-				</Set>
-			</New>
-		</Arg>
-	</Call>
+    <Call name="addConnector">
+        <Arg>
+            <New class="org.eclipse.jetty.server.ServerConnector">
+                <Arg name="server">
+                    <Ref refid="Server"/>
+                </Arg>
+                <Set name="port">
+                    <Property name="jetty.port" default="8090"/>
+                </Set>
+            </New>
+        </Arg>
+    </Call>
 
-	<Set name="handler">
-		<New class="org.eclipse.jetty.webapp.WebAppContext">
-			<Set name="contextPath">/</Set>
-			<Set name="resourceBase">src/main/webapp</Set>
-			<Set name="parentLoaderPriority">true</Set>
-			<Call name="setAttribute">
-				<Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern
-				</Arg>
-				<Arg>.*/target/classes/</Arg>
-			</Call>
-			<Set name="configurationClasses">
-				<Array type="java.lang.String">
-					<Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
-					<Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
-					<Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
-					<Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
-					<Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item>
-					<Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>
-					<Item>org.eclipse.jetty.annotations.AnnotationConfiguration</Item>
-					<Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
-				</Array>
-			</Set>
-		</New>
-	</Set>
+    <Set name="handler">
+        <New class="org.eclipse.jetty.webapp.WebAppContext">
+            <Set name="contextPath">/man</Set>
+            <Set name="resourceBase">src/main/webapp</Set>
+            <Set name="parentLoaderPriority">true</Set>
+            <Call name="setAttribute">
+                <Arg>org.eclipse.jetty.server.webapp.ContainerIncludeJarPattern
+                </Arg>
+                <Arg>.*/target/classes/</Arg>
+            </Call>
+            <Set name="configurationClasses">
+                <Array type="java.lang.String">
+                    <Item>org.eclipse.jetty.webapp.WebInfConfiguration</Item>
+                    <Item>org.eclipse.jetty.webapp.WebXmlConfiguration</Item>
+                    <Item>org.eclipse.jetty.webapp.MetaInfConfiguration</Item>
+                    <Item>org.eclipse.jetty.webapp.FragmentConfiguration</Item>
+                    <Item>org.eclipse.jetty.plus.webapp.EnvConfiguration</Item>
+                    <Item>org.eclipse.jetty.plus.webapp.PlusConfiguration</Item>
+                    <Item>org.eclipse.jetty.annotations.AnnotationConfiguration</Item>
+                    <Item>org.eclipse.jetty.webapp.JettyWebXmlConfiguration</Item>
+                </Array>
+            </Set>
+        </New>
+    </Set>
 
 </Configure>
