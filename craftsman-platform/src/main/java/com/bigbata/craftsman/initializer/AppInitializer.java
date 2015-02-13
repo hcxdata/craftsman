@@ -42,7 +42,8 @@ public class AppInitializer implements WebApplicationInitializer {
 				"springSecurityFilterChain", new DelegatingFilterProxy(
 						"springSecurityFilterChain"));
 		filter.addMappingForUrlPatterns(null, false, "/web/*");
-		
+		filter.addMappingForUrlPatterns(null, false, "/api/*");
+
 		// characterEncoding
 		CharacterEncodingFilter characterEncodingFilter = new CharacterEncodingFilter();
 		characterEncodingFilter.setEncoding("UTF-8");
