@@ -44,38 +44,6 @@
         <module>craftsman-webapp</module>
     </modules>
 
-    <repositories>
-        <repository>
-            <id>bigbata.public</id>
-            <name>Public</name>
-            <url>http://42.96.175.44:8081/nexus/content/groups/public</url>
-        </repository>
-    </repositories>
-
-    <pluginRepositories>
-        <pluginRepository>
-            <id>bigbata.public</id>
-            <name>Public</name>
-            <url>http://42.96.175.44:8081/nexus/content/groups/public</url>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
-        </pluginRepository>
-    </pluginRepositories>
-
-    <distributionManagement>
-        <repository>
-            <id>bigbata.releases</id>
-            <name>Releases</name>
-            <url>http://42.96.175.44:8081/nexus/content/repositories/releases</url>
-        </repository>
-        <snapshotRepository>
-            <id>bigbata.snapshots</id>
-            <name>Snapshots</name>
-            <url>http://42.96.175.44:8081/nexus/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
-
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
