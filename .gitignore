@@ -12,3 +12,10 @@ spy.log
 
 .DS_Store
 .swp
+
+.idea/*
+*.iml
+app.log
+*.ipr
+*.iws
+target/
