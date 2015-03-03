@@ -3,6 +3,7 @@ package com.bigbata.craftsman.api.system;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.bigbata.craftsman.exception.ME;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -39,6 +40,8 @@ public class UsersApi {
 
 	@RequestMapping(method = RequestMethod.POST)
 	public User create(@RequestBody User user) {
+		if(userDao.findUserByName(user.getName()) != null)
+			throw new ME("该用户已存在");
 		return userDao.save(user);
 	}
 
