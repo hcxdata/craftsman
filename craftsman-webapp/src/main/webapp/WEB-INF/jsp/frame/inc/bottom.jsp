@@ -1,3 +1,7 @@
+<script>
+	var Main = {};
+	Main.path = '<%=request.getContextPath()%>';
+</script>
 <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
 <script data-pace-options='{ "restartOnRequestAfter": true }'
 	src="<%=path%>/vendor/js/plugin/pace/pace.min.js"></script>
