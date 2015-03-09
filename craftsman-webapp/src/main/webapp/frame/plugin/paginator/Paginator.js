@@ -1,4 +1,4 @@
-angular.module('main.services', []).factory(
+angular.module('Main.services', []).factory(
     'Paginator',
     function () {
         return function (config) {

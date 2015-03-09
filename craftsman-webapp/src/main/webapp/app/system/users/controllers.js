@@ -1,13 +1,12 @@
 ﻿'use strict';
 
-angular.module('app.controllers', []).controller('IndexController',
+angular.module('controllers', []).controller('IndexController',
     function ($scope, $location, userService, Paginator) {
         $scope.page = Paginator({resource: userService});
     }).controller('NewController',
     function ($scope, $location, userService, $q) {
         $scope.save = function () {
             userService.save($scope.user, function () {
-                alert('success');
                 $location.path("/index");
             });
         }
@@ -21,14 +20,12 @@ angular.module('app.controllers', []).controller('IndexController',
         });
         $scope.save = function () {
             userService.update($scope.user, function () {
-                alert('success');
                 $location.path("/index");
             });
         }
 
     }).controller('DelController',
     function ($scope, $location, $routeParams, userService) {
-        alert('del');
         userService.delete({
             id: $routeParams.id
         }, function () {
