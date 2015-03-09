@@ -1,14 +1,14 @@
 ﻿'use strict';
-angular.module('app.route', ['ngRoute']).config(
+angular.module('route', ['ngRoute']).config(
     function ($routeProvider, $locationProvider) {
         var index = {
-            templateUrl: main.rootPath + '/app/system/users/index.html',
+            templateUrl: Main.rootPath + '/app/system/users/index.html',
             controller: 'IndexController'
         }, news = {
-            templateUrl: main.rootPath + '/app/system/users/new.html',
+            templateUrl: Main.rootPath + '/app/system/users/new.html',
             controller: 'NewController'
         }, edit = {
-            templateUrl: main.rootPath + '/app/system/users/new.html',
+            templateUrl: Main.rootPath + '/app/system/users/new.html',
             controller: 'EditController'
         }, del = {
             template: ' ',

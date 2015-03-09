@@ -1,7 +1,7 @@
 ﻿'use strict';
 
-angular.module('app.services', []).factory('userService', function ($resource) {
-    return $resource(main.rootPath + '/api/system/users/:id', {
+angular.module('services', []).factory('userService', function ($resource) {
+    return $resource(Main.rootPath + '/api/system/users/:id', {
         id: '@id'
     }, {
         'query': {method: 'GET', isArray: false},
