@@ -129,4 +129,5 @@
 <script src="<%=path%>/vendor/js/plugin/echart/echarts-all.js"></script>
 
 <!-- common js -->
+<script src="<%=path%>/frame/js/fun/Fun.js"></script>
 <script src="<%=path%>/frame/js/frame.js"></script>
