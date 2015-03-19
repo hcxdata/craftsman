@@ -66,6 +66,15 @@ angular.module('Main.services', []).factory(
                 },
                 isFirst: function () {
                     return this.first;
+                },
+                fresh: function(){
+                    this._load();
+                },
+                addParams:function(data){
+                    this._params = Fun.merge(data,this._params);
+                },
+                setParams:function(data){
+                    this._params = data;
                 }
             };
 

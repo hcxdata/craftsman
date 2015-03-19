@@ -3,6 +3,11 @@
 angular.module('controllers', []).controller('IndexController',
     function ($scope, $location, userService, Paginator) {
         $scope.page = Paginator({resource: userService});
+        $scope.reset = function(){$scope.name="";$scope.search();}
+        $scope.search = function(){
+            $scope.page.setParams({name:$scope.name});
+            $scope.page.fresh();
+        }
     }).controller('NewController',
     function ($scope, $location, userService, $q) {
         $scope.save = function () {

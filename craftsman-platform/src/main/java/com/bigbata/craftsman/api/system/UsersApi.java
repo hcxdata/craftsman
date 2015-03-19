@@ -28,8 +28,12 @@ public class UsersApi {
 	private UserDao userDao;
 
 	@RequestMapping(method = RequestMethod.GET)
-	public Page<User> index(@PageableDefault Pageable pageable) {
-		Page<User> users = userDao.findAll(pageable);
+	public Page<User> index(@PageableDefault Pageable pageable,String name) {
+		if(name==null)
+			name="%";
+		else 
+			name = "%"+name+"%";
+		Page<User> users = userDao.findByNameLike(pageable,name);
 		return users;
 	}
 
