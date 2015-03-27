@@ -10,5 +10,3 @@
 <!-- SmartAdmin AngularJS Fixes -->
 <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/css/fixes.css">
 
-<!-- 自定义全局样式 -->
-<link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/frame/css/style.css">

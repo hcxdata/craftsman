@@ -11,6 +11,8 @@
             登录
         </title>
         <%@ include file="/WEB-INF/jsp/frame/inc/head.jsp" %>
+        <!-- 自定义全局样式 -->
+        <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/app/system/login/style.css">
     </head>
     
     <body class="east-login-body">
@@ -19,7 +21,7 @@
                 <div class="col-md-6 east-clear-float-align-middle" style="height:48px;">
                     <c:if test="${param.error != null}">
                         <div class="alert alert-danger">
-                            无效的用户名和密码!
+                            无效的用户名或密码!
                         </div>
                     </c:if>
                     <c:if test="${param.logout != null}">
