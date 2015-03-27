@@ -9,4 +9,7 @@
 
 <!-- SmartAdmin AngularJS Fixes -->
 <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/css/fixes.css">
+
+<!-- ng-fab-form .css file -->
+<link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/js/plugin/ng-fab-form/css/style.css">
                 

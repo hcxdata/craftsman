@@ -1,0 +1,58 @@
+<!-- Default Validation Template -->
+<div ng-messages="field.$error"
+     class="validation"
+     ng-show="attrs.required===''|| attrs.required">
+     <!-- Show errors for invalid fields, when it has been either focused,
+      has been changed or the user tried to submit the form without success
+      (requires the setDirtyOnSubmit-option to be set-->
+    <ul class="list-unstyled validation-errors"
+        ng-show="field.$invalid && (field.$touched || field.$dirty || form.$triedSubmit)">
+        <li ng-message="required">此输入框必填</li>
+        <li ng-message="password">请输入密码</li>
+        <li ng-message="email">请输入一个正确的电子邮件地址</li>
+        <li ng-message="pattern">输入格式不正确</li>
+        <li ng-message="date">请输入一个有效日期</li>
+        <li ng-message="time">请输入一个有效时间</li>
+        <li ng-message="datetime">请输入一个有效日期时间</li>
+        <li ng-message="datetime-local">请输入一个有效的本地日期时间</li>
+        <li ng-message="number">请输入一个数字</li>
+        <li ng-message="color">请选择一个颜色</li>
+        <li ng-message="range">请在有效范围内进行选择</li>
+        <li ng-message="month">请输入一个有效月份</li>
+        <li ng-message="url">请输入一个有效URL地址</li>
+        <li ng-message="file">无效文件</li>
+
+        <!-- ng-fab-form provides you with access to the
+        input-element-attributes, allowing you to display their values
+        inside of the message-->
+        <li ng-message="minlength">请输入至少 {{ attrs.minlength }} 个字符</li>
+        <li ng-message="maxlength">请不要超过 {{ attrs.maxlength }} 个字符</li>
+
+        <li ng-if="attrs.type === 'time' "
+            ng-message="min">规定的时间不能早于 {{ attrs.min |date: 'HH:MM' }}
+        </li>
+        <li ng-message="ngFabMatch"> {{ attrs.type ==='password'? '密码' : '值' }} 不匹配</li>
+
+
+        <!-- you can use ng-if or ng-show for more advanced
+        error messages -->
+        <li ng-if="attrs.type === 'time' "
+            ng-message="min">规定的时间不能晚于 {{ attrs.min |date: 'HH:MM' }}
+        </li>
+        <li ng-message="max"
+            ng-if="attrs.type === 'time' ">规定的时间不能早于 {{attrs.max |date: 'HH:MM'}}
+        </li>
+        <li ng-message="min"
+            ng-if="attrs.type === 'date' ">规定的日期不能晚于 {{attrs.min
+          |date:'dd.MM.yy'}}
+          </li>
+        <li ng-message="max"
+            ng-if="attrs.type === 'date' ">规定的日期不能晚于 {{attrs.max |date: 'dd.MM.yy'}}
+        </li>
+    </ul>
+    <!-- It is also possible to show a success element
+    using the standard form syntax -->
+    <div class="validation-success"
+         ng-show="field.$valid && !field.$invalid">
+    </div>
+</div>

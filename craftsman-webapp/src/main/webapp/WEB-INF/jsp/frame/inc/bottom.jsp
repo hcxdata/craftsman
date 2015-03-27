@@ -128,6 +128,9 @@
 <!-- echart -->
 <script src="<%=path%>/vendor/js/plugin/echart/echarts-all.js"></script>
 
+<!-- ng-fab-form -->
+<script src="<%=path%>/vendor/js/plugin/ng-fab-form/ng-fab-form.js"></script>
+
 <!-- common js -->
 <script src="<%=path%>/frame/js/fun/Fun.js"></script>
 <script src="<%=path%>/frame/js/frame.js"></script>
