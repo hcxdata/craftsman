@@ -1,0 +1,27 @@
+.east-clear-float-align-middle{
+	float:none;
+	margin-left:auto;
+	margin-right:auto;
+}
+
+@media (min-width: 768px) {
+  	.east-login-container{
+		margin-top:50px;
+	}
+}
+@media (min-width: 992px) {
+  	.east-login-container{
+		margin-top:150px;
+	}
+}
+@media (min-width: 1200px) {
+  	.east-login-container{
+		margin-top:150px;
+	}
+}
+.east-login-body{
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+}

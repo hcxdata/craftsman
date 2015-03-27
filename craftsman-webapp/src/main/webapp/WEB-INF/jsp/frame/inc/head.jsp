@@ -13,4 +13,3 @@
 <!-- SmartAdmin AngularJS Fixes -->
 <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/css/fixes.css">
 
-                
