@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('Main.config', ['ngRoute', 'ngResource']).config(function ($httpProvider) {
+angular.module('Main.config', ['ngRoute', 'ngResource', 'ngFabForm']).config(function ($httpProvider) {
 
-    function notifyError(rejection){
+    function notifyError(rejection) {
         $.bigBox({
             title: rejection.status + ' ' + rejection.statusText,
             content: rejection.data.message,
@@ -11,6 +11,7 @@ angular.module('Main.config', ['ngRoute', 'ngResource']).config(function ($httpP
             timeout: 6000
         });
     }
+
     $httpProvider.interceptors.push(function ($q) {
         return {
             request: function (config) {
@@ -20,11 +21,21 @@ angular.module('Main.config', ['ngRoute', 'ngResource']).config(function ($httpP
             responseError: function (res) {
                 if (res.status === 401) {
                     location.reload();
-                }else if(res.status === 500){
+                } else if (res.status === 500) {
                     notifyError(res);
                 }
                 return $q.reject(res);
             }
         };
+    });
+}).config(function (ngFabFormProvider) {
+    ngFabFormProvider.extendConfig({
+        validationsTemplate: Main.rootPath + '/frame/directives/ng-fab-form/message-zh.html',
+        preventInvalidSubmit: true,
+        preventDoubleSubmit: true,
+        setFormDirtyOnSubmit: true,
+        scrollToAndFocusFirstErrorOnSubmit: true,
+        scrollAnimationTime: 900,
+        scrollOffset: -100
     });
 });

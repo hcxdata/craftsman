@@ -31,8 +31,6 @@
 <script src="<%=path%>/vendor/js/plugin/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
 <script src="<%=path%>/vendor/js/plugin/angular-couch-potato/dist/angular-couch-potato.js"></script>
 <script src="<%=path%>/vendor/js/plugin/angular-easyfb/angular-easyfb.min.js"></script>
-<!-- <script src="<%=path%>/vendor/js/plugin/angular-google-maps/dist/angular-google-maps.min.js"></script>  -->
-<script src="<%=path%>/vendor/js/plugin/angular-google-plus/dist/angular-google-plus.min.js"></script>
 <script src="<%=path%>/vendor/js/plugin/angular-load/angular-loader.min.js"></script>
 <script src="<%=path%>/vendor/js/plugin/angular-message/angular-messages.min.js"></script>
 <script src="<%=path%>/vendor/js/plugin/angular-mock/angular-mocks.js"></script>
@@ -53,13 +51,6 @@
 
 <!-- SPARKLINES -->
 <script src="<%=path%>/vendor/js/plugin/sparkline/jquery.sparkline.min.js"></script>
-
-<!-- JQUERY VALIDATE -->
-<script src="<%=path%>/vendor/js/plugin/jquery-validate/jquery.validate.min.js"></script>
-
-<!-- JQUERY BOOTSTRAP VALIDATE -->
-<script
-	src="<%=path%>/vendor/js/plugin/bootstrapvalidator/dist/js/bootstrapValidator.min.js"></script>
 
 <!-- JQUERY MASKED INPUT -->
 <script src="<%=path%>/vendor/js/plugin/masked-input/jquery.maskedinput.min.js"></script>
@@ -127,6 +118,9 @@
 
 <!-- echart -->
 <script src="<%=path%>/vendor/js/plugin/echart/echarts-all.js"></script>
+
+<!-- ng-fab-form -->
+<script src="<%=path%>/vendor/js/plugin/ng-fab-form/ng-fab-form.js"></script>
 
 <!-- common js -->
 <script src="<%=path%>/frame/js/fun/Fun.js"></script>
