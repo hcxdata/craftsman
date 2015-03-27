@@ -2,14 +2,21 @@
 
 angular.module('controllers', []).controller('IndexController',
     function ($scope, $location, userService, Paginator) {
-        $scope.page = Paginator({resource: userService});
-        $scope.reset = function(){$scope.name="";$scope.search();}
-        $scope.search = function(){
-            $scope.page.setParams({name:$scope.name});
+        $scope.page = Paginator({
+            resource: userService
+        });
+        $scope.reset = function () {
+            $scope.name = "";
+            $scope.search();
+        };
+        $scope.search = function () {
+            $scope.page.setParams({
+                name: $scope.name
+            });
             $scope.page.fresh();
-        }
+        };
     }).controller('NewController',
-    function ($scope, $location, userService, $q) {
+    function ($scope, $location, userService) {
         $scope.save = function () {
             userService.save($scope.user, function () {
                 $location.path("/index");
@@ -21,7 +28,7 @@ angular.module('controllers', []).controller('IndexController',
             id: $routeParams.id
         }, function (user) {
             $scope.user = user;
-            $('#confimPassWord').val(user.password);
+            $scope.pwRepeat = user.password;
         });
         $scope.save = function () {
             userService.update($scope.user, function () {
@@ -34,7 +41,6 @@ angular.module('controllers', []).controller('IndexController',
         userService.delete({
             id: $routeParams.id
         }, function () {
-            alert('success');
             $location.path("/index");
         });
 
