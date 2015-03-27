@@ -1,56 +1,46 @@
 ﻿'use strict';
 
 angular.module('controllers', []).controller('IndexController',
-    function($scope, $location, userService, Paginator) {
+    function ($scope, $location, userService, Paginator) {
         $scope.page = Paginator({
             resource: userService
         });
-        $scope.reset = function() {
+        $scope.reset = function () {
             $scope.name = "";
             $scope.search();
-        }
-        $scope.search = function() {
+        };
+        $scope.search = function () {
             $scope.page.setParams({
                 name: $scope.name
             });
             $scope.page.fresh();
-        }
-    }).controller('NewController',
-    function($scope, $location, userService, $q, ngFabForm) {
-        $scope.customFormOptions = {
-            validationsTemplate: Main.rootPath + '/frame/directives/ng-fab-form/message-zh.html',
-            preventInvalidSubmit: true,
-            preventDoubleSubmit: true,
-            setFormDirtyOnSubmit: true,
-            scrollToAndFocusFirstErrorOnSubmit: true,
-            scrollAnimationTime: 900,
-            scrollOffset: -100,
         };
-        $scope.save = function() {
-            userService.save($scope.user, function() {
+    }).controller('NewController',
+    function ($scope, $location, userService) {
+        $scope.save = function () {
+            userService.save($scope.user, function () {
                 $location.path("/index");
             });
         }
     }).controller('EditController',
-    function($scope, $location, $routeParams, userService) {
+    function ($scope, $location, $routeParams, userService) {
         userService.get({
             id: $routeParams.id
-        }, function(user) {
+        }, function (user) {
             $scope.user = user;
-            $('#confimPassWord').val(user.password);
+            $scope.pwRepeat = user.password;
         });
-        $scope.save = function() {
-            userService.update($scope.user, function() {
+        $scope.save = function () {
+            userService.update($scope.user, function () {
                 $location.path("/index");
             });
         }
 
     }).controller('DelController',
-    function($scope, $location, $routeParams, userService) {
+    function ($scope, $location, $routeParams, userService) {
         userService.delete({
             id: $routeParams.id
-        }, function() {
-            alert('success');
+        }, function () {
             $location.path("/index");
         });
 
