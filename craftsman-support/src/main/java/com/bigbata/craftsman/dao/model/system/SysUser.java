@@ -1,20 +1,18 @@
 package com.bigbata.craftsman.dao.model.system;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-public class User {
+@Table(name = "sys_user")
+public class SysUser {
 	@Id
 	@GeneratedValue
 	private Long id;
 	@Column(nullable = false)
 	private String name;
-	@Column
+	@Column(nullable = false)
 	private String password;
-	@Column
+	@Column(nullable = false)
 	private String realName;
 
 	public String getPassword() {
