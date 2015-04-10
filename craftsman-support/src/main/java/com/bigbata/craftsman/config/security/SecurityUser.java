@@ -3,7 +3,7 @@ package com.bigbata.craftsman.config.security;
 import java.util.ArrayList;
 import java.util.Collection;
 
-import com.bigbata.craftsman.dao.model.system.SysUser;
+import com.bigbata.craftsman.dao.model.SysUser;
 import org.springframework.beans.BeanUtils;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

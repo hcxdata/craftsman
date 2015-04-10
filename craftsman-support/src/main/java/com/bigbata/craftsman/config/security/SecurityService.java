@@ -1,6 +1,6 @@
 package com.bigbata.craftsman.config.security;
 
-import com.bigbata.craftsman.dao.model.system.SysUser;
+import com.bigbata.craftsman.dao.model.SysUser;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

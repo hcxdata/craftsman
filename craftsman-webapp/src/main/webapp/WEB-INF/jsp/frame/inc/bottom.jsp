@@ -1,10 +1,10 @@
 <script>
-	var Main = {};
-	Main.rootPath = '<%=request.getContextPath()%>';
+    var Main = {};
+    Main.rootPath = '<%=request.getContextPath()%>';
 </script>
 <!-- PACE LOADER - turn this on if you want ajax loading to show (caution: uses lots of memory on iDevices)-->
 <script data-pace-options='{ "restartOnRequestAfter": true }'
-	src="<%=path%>/vendor/js/plugin/pace/pace.min.js"></script>
+        src="<%=path%>/vendor/js/plugin/pace/pace.min.js"></script>
 
 <!-- Link to Google CDN's jQuery + jQueryUI; fall back to local -->
 <script src="<%=path%>/vendor/js/libs/jquery-2.1.1.min.js"></script>
@@ -47,7 +47,7 @@
 
 <!-- EASY PIE CHARTS -->
 <script
-	src="<%=path%>/vendor/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
+        src="<%=path%>/vendor/js/plugin/easy-pie-chart/jquery.easy-pie-chart.min.js"></script>
 
 <!-- SPARKLINES -->
 <script src="<%=path%>/vendor/js/plugin/sparkline/jquery.sparkline.min.js"></script>
@@ -60,7 +60,7 @@
 
 <!-- JQUERY UI + Bootstrap Slider -->
 <script
-	src="<%=path%>/vendor/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
+        src="<%=path%>/vendor/js/plugin/bootstrap-slider/bootstrap-slider.min.js"></script>
 
 <!-- browser msie issue fix -->
 <script src="<%=path%>/vendor/js/plugin/msie-fix/jquery.mb.browser.min.js"></script>
@@ -85,14 +85,13 @@
 
 <!-- PAGE RELATED PLUGIN(S) -->
 <script
-	src="<%=path%>/vendor/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
+        src="<%=path%>/vendor/js/plugin/bootstrap-timepicker/bootstrap-timepicker.min.js"></script>
 <script src="<%=path%>/vendor/js/plugin/datatables/media/js/jquery.dataTables.min.js"></script>
 <script src="<%=path%>/vendor/js/plugin/datatables-colvis/js/dataTables.colVis.js"></script>
 <script src="<%=path%>/vendor/js/plugin/datatables-tabletools/js/dataTables.tableTools.js"></script>
 <script src="<%=path%>/vendor/js/plugin/datatables-plugins/integration/bootstrap/3/dataTables.bootstrap.js"></script>
 <script
-	src="<%=path%>/vendor/js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
-
+        src="<%=path%>/vendor/js/plugin/datatable-responsive/datatables.responsive.min.js"></script>
 
 
 <!-- Flot Chart Plugin: Flot Engine, Flot Resizer, Flot Tooltip -->
@@ -103,13 +102,13 @@
 
 <!-- Vector Maps Plugin: Vectormap engine, Vectormap language -->
 <script
-	src="<%=path%>/vendor/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js"></script>
+        src="<%=path%>/vendor/js/plugin/vectormap/jquery-jvectormap-1.2.2.min.js"></script>
 <script
-	src="<%=path%>/vendor/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js"></script>
+        src="<%=path%>/vendor/js/plugin/vectormap/jquery-jvectormap-world-mill-en.js"></script>
 
 <!-- Full Calendar -->
 <script
-	src="<%=path%>/vendor/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
+        src="<%=path%>/vendor/js/plugin/fullcalendar/jquery.fullcalendar.min.js"></script>
 
 <!-- morris -->
 <script src="<%=path%>/vendor/js/plugin/morris/raphael.min.js"></script>
@@ -125,3 +124,8 @@
 <!-- common js -->
 <script src="<%=path%>/frame/js/fun/Fun.js"></script>
 <script src="<%=path%>/frame/js/frame.js"></script>
+<!-- dict js -->
+<script src="<%=path%>/frame/js/dict/dictData.js"></script>
+<!-- filte js-->
+<script src="<%=path%>/frame/filter/filters.js"></script>
+<script src="<%=path%>/frame/filter/dictFilter.js"></script>

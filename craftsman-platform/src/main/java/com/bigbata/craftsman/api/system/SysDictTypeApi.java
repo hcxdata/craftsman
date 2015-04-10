@@ -1,6 +1,6 @@
 package com.bigbata.craftsman.api.system;
 
-import com.bigbata.craftsman.dao.model.system.SysDictTypeEntity;
+import com.bigbata.craftsman.dao.model.SysDictTypeEntity;
 import com.bigbata.craftsman.dao.system.SysDictDao;
 import com.bigbata.craftsman.dao.system.SysDictTypeDao;
 import com.bigbata.craftsman.exception.ME;

@@ -1,6 +1,6 @@
 package com.bigbata.craftsman.dao.system;
 
-import com.bigbata.craftsman.dao.model.system.SysDictTypeEntity;
+import com.bigbata.craftsman.dao.model.SysDictTypeEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
