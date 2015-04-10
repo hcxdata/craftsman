@@ -52,7 +52,7 @@
                         <tr ng-repeat="dictType in page.list track by $index">
                             <td>{{dictType.code}}</td>
                             <td>{{dictType.name}}</td>
-                            <td><a ng-href="#/{{dictType.id}}/edit">修改</a> | <a ng-href="#/{{dictType.id}}/del">删除</a> |
+                            <td><a ng-href="#/{{dictType.id}}/edit">修改</a> | <a ng-click="delete(dictType.id)">删除</a> |
                                 <a ng-click="showDictList($index,dictType)">字典</a></td>
                         </tr>
                         </tbody>
@@ -87,7 +87,7 @@
                     <div class="dt-toolbar">
                         <div class="col-xs-6 col-sm-12">
                             <a class="btn btn-default"
-                               ng-href="#/dictNew?typeId={{dictType.id}}&typeCode={{dictType.code}}"><span
+                               ng-click="addDict(dictType.id,dictType.code)"><span
                                     class="glyphicon glyphicon-pencil"></span>添加</a>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                             <td><a ng-click="orderUp(dict.id)">上移</a> | <a
                                     ng-click="orderDown(dict.id)">下移</a>
                             </td>
-                            <td><a ng-href="#/{{dict.id}}/dictEdit">修改</a> | <a ng-href="#/{{dict.id}}/dictDel">删除</a>
+                            <td><a ng-href="#/{{dict.id}}/dictEdit">修改</a> | <a ng-click="delete(dict.id)">删除</a>
                             </td>
                         </tr>
                         </tbody>

@@ -58,7 +58,7 @@
                             <tr ng-repeat="user in page.list track by $index">
                                 <td>{{user.name}}</td>
                                 <td>{{user.realName}}</td>
-                                <td><a ng-href="#/{{user.id}}/edit">修改</a> | <a ng-href="#/{{user.id}}/del">删除</a></td>
+                                <td><a ng-href="#/{{user.id}}/edit">修改</a> | <a ng-click="delete(user.id)">删除</a></td>
                             </tr>
                             </tbody>
                         </table>

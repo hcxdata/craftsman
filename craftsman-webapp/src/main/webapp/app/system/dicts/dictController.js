@@ -32,10 +32,32 @@ angular.module('controllers').controller('IndexDictController',
             });
         };
 
+        $scope.addDict = function(typeId, typeCode){
+            if(typeId && typeCode)
+            {
+                $location.url("/dictNew?typeId=" + typeId + "&typeCode=" + typeCode);
+            }
+            else
+            {
+                Fun.notify("alert" , {
+                    data : {
+                        message : "请选择数据字典类型!"
+                    }
+                });
+            }
+        };
+
+        $scope.delete = function(id){
+            Fun.deleteMsgBox(function(){
+                $location.url("/" + id + "/dictDel");
+                $scope.$apply();
+            });
+        };
     }).controller('NewDictController',
     function ($scope, $location, dictService) {
         $scope.save = function () {
             dictService.save($scope.dict, function () {
+                Fun.notify("info");
                 $location.path("/index");
             });
         }
@@ -51,6 +73,7 @@ angular.module('controllers').controller('IndexDictController',
         });
         $scope.save = function () {
             dictService.update($scope.dict, function () {
+                Fun.notify("info");
                 $location.path("/index");
             });
         }
@@ -60,6 +83,7 @@ angular.module('controllers').controller('IndexDictController',
         dictService.delete({
             id: $routeParams.id
         }, function () {
+            Fun.notify("info");
             $location.path("/index");
         });
 

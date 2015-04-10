@@ -15,10 +15,18 @@ angular.module('controllers', []).controller('IndexController',
             });
             $scope.page.fresh();
         };
+
+        $scope.delete = function(id){
+            Fun.deleteMsgBox(function(){
+                $location.url("/" + id + "/del");
+                $scope.$apply();
+            });
+        };
     }).controller('NewController',
     function ($scope, $location, userService) {
         $scope.save = function () {
             userService.save($scope.user, function () {
+                Fun.notify("info");
                 $location.path("/index");
             });
         }
@@ -32,6 +40,7 @@ angular.module('controllers', []).controller('IndexController',
         });
         $scope.save = function () {
             userService.update($scope.user, function () {
+                Fun.notify("info");
                 $location.path("/index");
             });
         }
@@ -41,6 +50,7 @@ angular.module('controllers', []).controller('IndexController',
         userService.delete({
             id: $routeParams.id
         }, function () {
+            Fun.notify("info");
             $location.path("/index");
         });
 

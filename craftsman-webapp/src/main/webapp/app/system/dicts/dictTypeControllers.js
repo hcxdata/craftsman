@@ -21,10 +21,18 @@ angular.module('controllers').controller('IndexDictTypeController',
             $scope.$emit("refreshAndShowDictList", dictType);
             $scope.$emit("getDictType", dictType);
         }
+
+        $scope.delete = function(id){
+            Fun.deleteMsgBox(function(){
+                $location.url("/" + id + "/del");
+                $scope.$apply();
+            });
+        };
     }).controller('NewDictTypeController',
     function($scope, $location, dictTypeService) {
         $scope.save = function() {
             dictTypeService.save($scope.dictType, function() {
+                Fun.notify("info");
                 $location.path("/index");
             });
         }
@@ -37,6 +45,7 @@ angular.module('controllers').controller('IndexDictTypeController',
         });
         $scope.save = function() {
             dictTypeService.update($scope.dictType, function() {
+                Fun.notify("info");
                 $location.path("/index");
             });
         }
@@ -46,7 +55,7 @@ angular.module('controllers').controller('IndexDictTypeController',
         dictTypeService.delete({
             id: $routeParams.id
         }, function() {
+            Fun.notify("info");
             $location.path("/index");
         });
-
     });
