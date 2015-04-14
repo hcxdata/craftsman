@@ -1,9 +1,19 @@
 'use strict';
 
 angular.module('controllers').controller('IndexDictTypeController',
-    function($scope, $location, dictTypeService, Paginator) {
+    function($scope, $location, dictTypeService, Paginator, $routeParams) {
         $scope.page = Paginator({
-            resource: dictTypeService
+            resource: dictTypeService,
+            successCallback: function(data) {
+                if ($routeParams.code) {
+                    var dictType = null;
+                    for (var i in data.content) {
+                        if (data.content[i].code === $routeParams.code) {
+                            $scope.showDictList(null, data.content[i]);
+                        }
+                    }
+                }
+            }
         });
         $scope.reset = function() {
             $scope.name = "";
@@ -22,12 +32,13 @@ angular.module('controllers').controller('IndexDictTypeController',
             $scope.$emit("getDictType", dictType);
         }
 
-        $scope.delete = function(id){
-            Fun.deleteMsgBox(function(){
+        $scope.delete = function(id) {
+            Fun.deleteMsgBox(function() {
                 $location.url("/" + id + "/del");
                 $scope.$apply();
             });
         };
+
     }).controller('NewDictTypeController',
     function($scope, $location, dictTypeService) {
         $scope.save = function() {
@@ -46,7 +57,7 @@ angular.module('controllers').controller('IndexDictTypeController',
         $scope.save = function() {
             dictTypeService.update($scope.dictType, function() {
                 Fun.notify("info");
-                $location.path("/index");
+                $location.path("/" + $scope.dictType.code + "/index");
             });
         }
 

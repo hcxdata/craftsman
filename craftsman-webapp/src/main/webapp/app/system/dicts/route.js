@@ -23,7 +23,7 @@ angular.module('route', ['ngRoute']).config(
             template: ' ',
             controller: 'DelDictController'
         };
-        $routeProvider.when('/index', index).when('/new', news).when(
+        $routeProvider.when('/index', index).when('/:code/index',index).when('/new', news).when(
             "/:id/edit", edit).when("/:id/del", del).when('/dictNew', dictNews).when(
             "/:id/dictEdit", dictEdit).when("/:id/dictDel", dictDel);
 

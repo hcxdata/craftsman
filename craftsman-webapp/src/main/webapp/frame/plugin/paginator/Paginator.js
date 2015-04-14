@@ -29,6 +29,12 @@ angular.module('Main.services', []).factory(
                         _self.first = data.first;//boolean 是否第一个
                         _self.totalElements = data.totalElements;//
                         _self.numberOfElements = data.numberOfElements;//
+
+                        // 为分页数据完成添加成功回调
+                        if(config.successCallback)
+                        {
+                            config.successCallback(data);
+                        }
                     }, function (error) {
                         console.error("get data error :" + error);
                     });
