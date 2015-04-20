@@ -32,7 +32,7 @@ public class DictFileInitBean {
     private SysDictDao sysDictDao;
 
     @PostConstruct
-    public void method() throws IOException {
+    public void init() throws IOException {
         //创建文件
         res = createFile();
         //写头信息

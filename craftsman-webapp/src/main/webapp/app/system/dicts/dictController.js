@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controllers').controller(/*bug 或者需要改进 : 在未选择字典类型的情况下页面加载也会请求数据字典数据*/ 'IndexDictController',
+angular.module('controllers').controller('IndexDictController',
     function ($scope, $location, dictService, Paginator) {
         $scope.page = Paginator({
             resource: dictService
