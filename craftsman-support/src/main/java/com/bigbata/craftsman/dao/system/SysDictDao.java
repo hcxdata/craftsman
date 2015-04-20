@@ -1,12 +1,14 @@
 package com.bigbata.craftsman.dao.system;
 
-import com.bigbata.craftsman.dao.model.system.SysDictEntity;
+import com.bigbata.craftsman.dao.model.SysDictEntity;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.data.repository.query.Param;
+
+import java.util.List;
 
 /**
  * Created by lixianghui on 15-4-2.
@@ -17,6 +19,9 @@ public interface SysDictDao extends PagingAndSortingRepository<SysDictEntity, In
     public SysDictEntity findByTypeCodeAndName(String typeCode, String name);
 
     public SysDictEntity findByTypeCodeAndCode(String typeCode, String code);
+
+    @Query(value = "from SysDictEntity s where s.typeCode = :typeCode order by orders")
+    public List<SysDictEntity> findByTypeCode(@Param(value = "typeCode") String typeCode);
 
     @Query(value = "select count(s.id) from SysDictEntity s where s.typeCode = :typeCode")
     public Integer getCountByTypeCode(@Param(value = "typeCode") String typeCode);
@@ -38,5 +43,5 @@ public interface SysDictDao extends PagingAndSortingRepository<SysDictEntity, In
 
     @Modifying
     @Query("delete from SysDictEntity where typeCode = :typeCode ")
-    public void deleteByTypeCode(@Param("typeCode") String typeCode);
+    public List<SysDictEntity> deleteByTypeCode(@Param("typeCode") String typeCode);
 }

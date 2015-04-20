@@ -1,4 +1,4 @@
-package com.bigbata.craftsman.dao.model.system;
+package com.bigbata.craftsman.dao.model;
 
 import javax.persistence.*;
 

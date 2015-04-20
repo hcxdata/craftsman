@@ -1,6 +1,6 @@
 package com.bigbata.craftsman.api.system;
 
-import com.bigbata.craftsman.dao.model.system.SysDictEntity;
+import com.bigbata.craftsman.dao.model.SysDictEntity;
 import com.bigbata.craftsman.dao.system.SysDictDao;
 import com.bigbata.craftsman.exception.ME;
 import org.springframework.beans.factory.annotation.Autowired;
