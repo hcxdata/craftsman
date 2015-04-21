@@ -1,5 +1,5 @@
 var Fun = {};
-Fun.merge = function(obj1, obj2) { // Our merge function
+Fun.merge = function (obj1, obj2) { // Our merge function
     var result = {}; // return result
     for (var i in obj1) { // for every property in obj1
         if ((i in obj2) && (typeof obj1[i] === "object") && (i !== null)) {
@@ -17,8 +17,8 @@ Fun.merge = function(obj1, obj2) { // Our merge function
     return result;
 };
 
-Fun.notify = function(status, rejection) {
-    if (/^(alert)|(warning)|(info)$/.test(status)) {
+Fun.notify = function (data) {
+    if (/^(alert)|(warning)|(info)$/.test(data.status)) {
         var colors = {
             alert: "#d26911",
             warning: "#C46A69",
@@ -29,37 +29,52 @@ Fun.notify = function(status, rejection) {
             warning: "fa fa-warning shake animated",
             info: "fa fa-info shake animated"
         };
-        rejection = rejection || {
-            data: {}
-        };
-        rejection = {
-            status: rejection.status ? rejection.status : (status === "info" || status === "alert" ? "" : ""),
-            statusText: rejection.statusText ? rejection.statusText : (status === "info" || status === "alert" ? "信息提示" : "错误提示"),
-            data: {
-                message: rejection.data.message ? rejection.data.message : (status === "info" || status === "alert" ? "操作成功!" : "操作失败!")
-            }
-        };
+        data = data || {};
+        data.status = data.status ? data.status : 'info';
+        data.title = data.title ? data.title : '提示信息';
+        data.message = data.message ? data.message : '操作成功';
+
         $.bigBox({
-            title: rejection.status + ' ' + rejection.statusText,
-            content: rejection.data.message,
-            color: colors[status],
-            icon: icons[status],
+            title: data.title,
+            content: data.message,
+            color: colors[data.status],
+            icon: icons[data.status],
             timeout: 6000
         });
     }
 };
+Fun.notifyMessage = function (status, title, message) {
+    if (!message) {
+        message = title;
+        title = null;
+    }
+    var data = {
+        status: status,
+        title: title,
+        message: message
+    }
+    Fun.notify(data);
+}
+Fun.notifyInfo = function (title, message) {
+    Fun.notifyMessage("info", title, message);
+}
+Fun.notifyAlert = function (title, message) {
+    Fun.notifyMessage("alert", title, message);
+}
+Fun.notifyWarn = function (title, message) {
+    Fun.notifyMessage("waring", title, message);
+}
 
-Fun.deleteMsgBox = function(yepoCallback , nopeCallback){
+Fun.deleteMsgBox = function (yepoCallback, nopeCallback) {
     $.SmartMessageBox({
         title: "操作提示!",
         content: "是否确定删除记录!",
         buttons: '[否][是]'
-    }, function(ButtonPressed) {
+    }, function (ButtonPressed) {
         if (ButtonPressed === "是") {
             yepoCallback();
         }
-        else if(ButtonPressed === "否")
-        {
+        else if (ButtonPressed === "否") {
             nopeCallback();
         }
     });

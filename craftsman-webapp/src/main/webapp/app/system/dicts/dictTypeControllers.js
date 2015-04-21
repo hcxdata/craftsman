@@ -43,7 +43,7 @@ angular.module('controllers').controller('IndexDictTypeController',
     function($scope, $location, dictTypeService) {
         $scope.save = function() {
             dictTypeService.save($scope.dictType, function() {
-                Fun.notify("info");
+                Fun.notifyInfo();
                 $location.path("/index");
             });
         }
@@ -56,7 +56,7 @@ angular.module('controllers').controller('IndexDictTypeController',
         });
         $scope.save = function() {
             dictTypeService.update($scope.dictType, function() {
-                Fun.notify("info");
+                Fun.notifyInfo();
                 $location.path("/" + $scope.dictType.code + "/index");
             });
         }
@@ -66,7 +66,7 @@ angular.module('controllers').controller('IndexDictTypeController',
         dictTypeService.delete({
             id: $routeParams.id
         }, function() {
-            Fun.notify("info");
+            Fun.notifyInfo();
             $location.path("/index");
         });
     });

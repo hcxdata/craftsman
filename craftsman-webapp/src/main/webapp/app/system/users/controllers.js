@@ -26,7 +26,7 @@ angular.module('controllers', []).controller('IndexController',
     function ($scope, $location, userService) {
         $scope.save = function () {
             userService.save($scope.user, function () {
-                Fun.notify("info");
+                Fun.notifyInfo();
                 $location.path("/index");
             });
         }
@@ -40,7 +40,7 @@ angular.module('controllers', []).controller('IndexController',
         });
         $scope.save = function () {
             userService.update($scope.user, function () {
-                Fun.notify("info");
+                Fun.notifyInfo();
                 $location.path("/index");
             });
         }
@@ -50,7 +50,7 @@ angular.module('controllers', []).controller('IndexController',
         userService.delete({
             id: $routeParams.id
         }, function () {
-            Fun.notify("info");
+            Fun.notifyInfo();
             $location.path("/index");
         });
 

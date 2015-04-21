@@ -12,7 +12,7 @@ angular.module('Main.config', ['ngRoute', 'ngResource', 'ngFabForm']).config(fun
                 if (res.status === 401) {
                     location.reload();
                 } else if (res.status === 500) {
-                    Fun.notify("warning", res);
+                    Fun.notifyWarn(res.status + ' ' + res.statusText, res.data.message)
                 }
                 return $q.reject(res);
             }
