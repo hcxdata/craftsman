@@ -1,0 +1,39 @@
+<section id="widget-grid">
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                 data-widget-editbutton="false">
+                <header>
+					<span class="widget-icon"> <i class="fa fa-table"></i>
+					</span>
+
+                    <h2>菜单列表</h2>
+                </header>
+
+                <!-- widget div-->
+                <div>
+                    <div class="widget-body no-padding">
+                        <div class="dt-toolbar">
+                            <div class="col-xs-6 col-sm-12">
+                                <a class="btn btn-default"
+                                   ng-click="/new?parentId={{currentSelectBranch['id'] ? currentSelectBranch['id'] : 0}}&parentText={{currentSelectBranch['text']}}"><span
+                                        class="glyphicon glyphicon-pencil"></span>添加</a>
+                                <a class="btn btn-default"
+                                   ng-click="edit()"><span
+                                        class="glyphicon glyphicon-pencil"></span>修改</a>
+                                <a class="btn btn-default"
+                                   ng-click="delete()"><span
+                                        class="glyphicon glyphicon-pencil"></span>删除</a>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <tree-grid tree-data="tree_data" col_defs="col_defs" on-select="my_tree_handler(branch)"></tree-grid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

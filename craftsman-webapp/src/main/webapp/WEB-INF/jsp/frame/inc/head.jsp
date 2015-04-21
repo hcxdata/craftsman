@@ -5,6 +5,9 @@
 <!-- ng-fab-form .css file -->
 <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/js/plugin/ng-fab-form/css/style.css">
 
+<!-- tree-grid-directive.css file -->
+<link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/js/plugin/tree-grid-directive/treeGrid.css">
+
 <!-- SmartAdmin Styles : Caution! DO NOT change the order -->
 <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/css/smartadmin-production-plugins.min.css">
 <link rel="stylesheet" type="text/css" media="screen" href="<%=path%>/vendor/css/smartadmin-production.min.css">
