@@ -22,7 +22,10 @@ angular.module('controllers', []).controller('IndexController',
             field: "orders",
             displayName: "排序"
         }];
-        $scope.currentSelectBranch = null;
+        $scope.currentSelectBranch = {
+            id: 0,
+            text: ""
+        };
         $scope.my_tree_handler = function(branch) {
             $scope.currentSelectBranch = branch;
         }

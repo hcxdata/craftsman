@@ -89,6 +89,13 @@
             treeControl     : '='
           },
           link       : function (scope, element, attrs) {
+            /**
+              使用排序
+            **/
+            $("tbody").sortable({
+                   delay:2 , 
+                   opacity:1
+                })
             var error, expandingProperty, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, n, on_treeData_change, select_branch, selected_branch, tree;
 
             error = function (s) {
