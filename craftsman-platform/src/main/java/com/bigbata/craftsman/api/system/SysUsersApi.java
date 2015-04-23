@@ -31,7 +31,7 @@ public class SysUsersApi {
 	public Page<SysUser> index(@PageableDefault Pageable pageable,String name) {
 		if(name==null)
 			name="%";
-		else 
+		else
 			name = "%"+name+"%";
 		Page<SysUser> users = userDao.findByNameLike(pageable,name);
 		return users;
