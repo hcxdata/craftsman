@@ -9,7 +9,7 @@
 		<div>
 			<div class="widget-body">
 				<form class="form-horizontal" role="form"  ng-submit="save()">
-					<input type='hidden' ng-model='menu.sorts' name='sorts'>
+					<input type='hidden' ng-model='menu.orders' name='orders'>
 					<fieldset>
 						<div class="form-group">
 							<br> <label class="col-md-3 control-label" for="name">*上级菜单</label>
@@ -25,9 +25,9 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<br> <label class="col-md-3 control-label" for="herfTarget">*链接地址</label>
+							<br> <label class="col-md-3 control-label" for="hrefTarget">*链接地址</label>
 							<div class="col-md-8">
-								<input id="herfTarget" class="form-control" type="text" name="herfTarget" ng-model="menu.herfTarget" required>
+								<input id="hrefTarget" class="form-control" type="text" name="hrefTarget" ng-model="menu.hrefTarget" required>
 							</div>
 						</div>
 					</fieldset>

@@ -3,16 +3,16 @@
 angular.module('controllers', []).controller('IndexController',
     function($scope, $location, menuService, menuFetchService) {
         $scope.reset = function() {};
-        /*$scope.tree_data = menuService.query({
-            id : 0
-        });*/
+        $scope.tree_data = menuFetchService.query({
+            id: 0
+        });
         $scope.col_defs = [{
             field: "id"
         }, {
             field: "text",
             displayName: "菜单名称"
         }, {
-            field: "herfTarget",
+            field: "hrefTarget",
             displayName: "链接地址"
         }, {
             field: "leaf",
@@ -27,111 +27,53 @@ angular.module('controllers', []).controller('IndexController',
             id: 0,
             text: ""
         };
-        $scope.my_tree_handler = function(branch) {
+        $scope.my_tree_expand_handler = function(branch) {
+            if (!branch.loaded)
+                menuFetchService.query({
+                    id: branch.id
+                }, function(dataArr) {
+                    for (var i = 0; i < dataArr.length; i++) {
+                        var data = dataArr[i];
+                        var b = data;
+                        b.uid = Math.random();
+                        b.parent_uid = branch.uid;
+                        $scope.my_tree.add_branch(branch, data);
+                    }
+                    $scope.my_tree.set_branch_loaded(branch);
+                    $scope.currentSelectBranch = branch;
+                });
+        };
+        $scope.my_tree_select_handler = function(branch) {
             $scope.currentSelectBranch = branch;
         };
         $scope.move_update = function(branch, targetBranch) {
+            if (branch.uid != targetBranch.uid) {
+                menuService.change({
+                    id: branch.id,
+                    action: 'changeParent',
+                    parentId: targetBranch.id
+                }, function(result) {
 
+                });
+            }
         };
         $scope.my_tree = {
-            
+
         };
-        $scope.tree_data = [{
-            "id": 1,
-            "parentId": 0,
-            "text": "菜单",
-            "orders": 1,
-            "herfTarget": "www.baidu.com",
-            "leaf": "false",
-            children: [{
-                "id": 11,
-                "parentId": 1,
-                "text": "菜单11",
-                "orders": 1,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }, {
-                "id": 12,
-                "parentId": 1,
-                "text": "菜单12",
-                "orders": 2,
-                "herfTarget": "www.baidu.com",
-                "leaf": "false",
-                children: [{
-                    "id": 121,
-                    "parentId": 12,
-                    "text": "菜单121",
-                    "orders": 1,
-                    "herfTarget": "www.baidu.com",
-                    "leaf": "true"
-                }, {
-                    "id": 122,
-                    "parentId": 12,
-                    "text": "菜单122",
-                    "orders": 2,
-                    "herfTarget": "www.baidu.com",
-                    "leaf": "true"
-                }]
-            }, {
-                "id": 13,
-                "parentId": 1,
-                "text": "菜单13",
-                "orders": 3,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }, {
-                "id": 14,
-                "parentId": 1,
-                "text": "菜单14",
-                "orders": 4,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }]
-        }, {
-            "id": 2,
-            "parentId": 0,
-            "text": "菜单",
-            "orders": 2,
-            "herfTarget": "www.baidu.com",
-            "leaf": "false",
-            children: [{
-                "id": 21,
-                "parentId": 2,
-                "text": "菜单21",
-                "orders": 1,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }, {
-                "id": 22,
-                "parentId": 2,
-                "text": "菜单22",
-                "orders": 2,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }, {
-                "id": 23,
-                "parentId": 2,
-                "text": "菜单23",
-                "orders": 3,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }, {
-                "id": 24,
-                "parentId": 2,
-                "text": "菜单24",
-                "orders": 4,
-                "herfTarget": "www.baidu.com",
-                "leaf": "true"
-            }]
-        }];
         $scope.edit = function() {
-            if ($scope.currentSelectBranch)
-                $location.url("/" + $scope.currentSelectBranch["id"] + "/edit");
-            else {}
+            if ($scope.currentSelectBranch) {
+                var parent = $scope.my_tree.get_parent_branch($scope.currentSelectBranch);
+                if (!parent)
+                    parent = {
+                        id: 0,
+                        text: ""
+                    };
+                $location.url("/" + $scope.currentSelectBranch["id"] + "/edit?parentId=" + parent.id + "&parentText=" + parent.text);
+            } else {}
         };
         $scope.delete = function() {
             if ($scope.currentSelectBranch)
-                $location.url("/" + $scope.currentSelectBranch["id"] + "/edit");
+                $location.path("/" + $scope.currentSelectBranch["id"] + "/del");
             else {}
         };
     }).controller('NewController',
@@ -148,7 +90,11 @@ angular.module('controllers', []).controller('IndexController',
     function($scope, $location, $routeParams, menuService) {
         menuService.get({
             id: $routeParams.id
-        }, function(menu) {});
+        }, function(menu) {
+            $scope.menu = menu;
+            $scope.menu.parentId = $location.$$search.parentId;
+            $scope.menu.parentText = $location.$$search.parentText ? $location.$$search.parentText : "根节点";
+        });
         $scope.save = function() {
             menuService.update($scope.menu, function() {
                 $location.path("/index");

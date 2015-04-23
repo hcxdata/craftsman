@@ -6,7 +6,7 @@ angular.module('services', []).factory('menuFetchService', function($resource) {
 	}, {
 		'query': {
 			method: 'GET',
-			isArray: false
+			isArray: true
 		}
 	});
 }).factory('menuService', function($resource) {
@@ -14,6 +14,9 @@ angular.module('services', []).factory('menuFetchService', function($resource) {
 		id: '@id'
 	}, {
 		update: {
+			method: 'PUT'
+		},
+		change: {
 			method: 'PUT'
 		}
 	});
