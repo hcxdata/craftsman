@@ -1,7 +1,7 @@
 'use strict';
 
 angular.module('controllers', []).controller('IndexController',
-    function($scope, $location, menuService) {
+    function($scope, $location, menuService, menuFetchService) {
         $scope.reset = function() {};
         /*$scope.tree_data = menuService.query({
             id : 0
@@ -17,7 +17,8 @@ angular.module('controllers', []).controller('IndexController',
         }, {
             field: "leaf",
             displayName: "是否叶子节点",
-            cellTemplate: '<text ng-if="row.branch[col.field] === \'true\'">是</text><text ng-if="row.branch[col.field] === \'false\'">否</text>'
+            cellTemplate: '<text ng-if="row.branch[col.field] === \'true\'">是</text><text ng-if="row.branch[col.field] === \'false\'">否</text>',
+            cellTemplateInfo: '<text ng-if="info.content[col.field] === \'true\'">是</text><text ng-if="info.content[col.field] === \'false\'">否</text>'
         }, {
             field: "orders",
             displayName: "排序"
@@ -28,19 +29,97 @@ angular.module('controllers', []).controller('IndexController',
         };
         $scope.my_tree_handler = function(branch) {
             $scope.currentSelectBranch = branch;
-        }
+        };
+        $scope.move_update = function(branch, targetBranch) {
+
+        };
+        $scope.my_tree = {
+            
+        };
         $scope.tree_data = [{
             "id": 1,
             "parentId": 0,
             "text": "菜单",
             "orders": 1,
             "herfTarget": "www.baidu.com",
-            "leaf": "true",
+            "leaf": "false",
             children: [{
                 "id": 11,
                 "parentId": 1,
-                "text": "菜单1",
+                "text": "菜单11",
                 "orders": 1,
+                "herfTarget": "www.baidu.com",
+                "leaf": "true"
+            }, {
+                "id": 12,
+                "parentId": 1,
+                "text": "菜单12",
+                "orders": 2,
+                "herfTarget": "www.baidu.com",
+                "leaf": "false",
+                children: [{
+                    "id": 121,
+                    "parentId": 12,
+                    "text": "菜单121",
+                    "orders": 1,
+                    "herfTarget": "www.baidu.com",
+                    "leaf": "true"
+                }, {
+                    "id": 122,
+                    "parentId": 12,
+                    "text": "菜单122",
+                    "orders": 2,
+                    "herfTarget": "www.baidu.com",
+                    "leaf": "true"
+                }]
+            }, {
+                "id": 13,
+                "parentId": 1,
+                "text": "菜单13",
+                "orders": 3,
+                "herfTarget": "www.baidu.com",
+                "leaf": "true"
+            }, {
+                "id": 14,
+                "parentId": 1,
+                "text": "菜单14",
+                "orders": 4,
+                "herfTarget": "www.baidu.com",
+                "leaf": "true"
+            }]
+        }, {
+            "id": 2,
+            "parentId": 0,
+            "text": "菜单",
+            "orders": 2,
+            "herfTarget": "www.baidu.com",
+            "leaf": "false",
+            children: [{
+                "id": 21,
+                "parentId": 2,
+                "text": "菜单21",
+                "orders": 1,
+                "herfTarget": "www.baidu.com",
+                "leaf": "true"
+            }, {
+                "id": 22,
+                "parentId": 2,
+                "text": "菜单22",
+                "orders": 2,
+                "herfTarget": "www.baidu.com",
+                "leaf": "true"
+            }, {
+                "id": 23,
+                "parentId": 2,
+                "text": "菜单23",
+                "orders": 3,
+                "herfTarget": "www.baidu.com",
+                "leaf": "true"
+            }, {
+                "id": 24,
+                "parentId": 2,
+                "text": "菜单24",
+                "orders": 4,
                 "herfTarget": "www.baidu.com",
                 "leaf": "true"
             }]

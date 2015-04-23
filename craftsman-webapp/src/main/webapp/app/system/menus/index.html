@@ -24,11 +24,17 @@
                                 <a class="btn btn-default"
                                    ng-click="delete()"><span
                                         class="glyphicon glyphicon-pencil"></span>删除</a>
+                                <a class="btn btn-default"
+                                   ng-click="orderUp()"><span
+                                        class="glyphicon glyphicon-pencil"></span>上移</a>
+                                <a class="btn btn-default"
+                                   ng-click="orderDown()"><span
+                                        class="glyphicon glyphicon-pencil"></span>下移</a>
                             </div>
                         </div>
                         <div class="container-fluid">
                             <div class="row">
-                                <tree-grid tree-data="tree_data" col_defs="col_defs" on-select="my_tree_handler(branch)"></tree-grid>
+                                <tree-grid tree-data="tree_data" col_defs="col_defs" on-select="my_tree_handler(branch)" on-move-update="move_update(branch , targetBranch)" tree-control="my_tree"></tree-grid>
                             </div>
                         </div>
                     </div>
