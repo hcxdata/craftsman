@@ -129,10 +129,14 @@
             onClick: '&',
             onExpand: '&',
             onMoveUpdate: '&',
+            onOrderUp: '&',
+            onOrderDown: '&',
+            onTreeDataPromised: '&',
             initialSelection: '@',
             treeControl: '='
           },
           link: function(scope, element, attrs) {
+            var treeDataPromised = false;
             scope.info = {
               position: {
                 left: 0,
@@ -141,7 +145,10 @@
               content: "",
               show: false
             };
-            var error, expandingProperty, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, n, on_treeData_change, select_branch, move_update_branch, selected_branch, tree, move_branch, remove_child;
+            var error, expandingProperty, expand_all_parents, expand_level, for_all_ancestors, for_each_branch, get_parent, n;
+            var on_treeData_change, select_branch, move_update_branch, selected_branch, tree, move_branch, remove_child, order_up, order_down;
+            var get_prev_sibling, get_siblings, get_first_child, get_next_sibling, get_last_child;
+            var find_branch_by_condition, find_tree_by_condition, on_treeData;
 
             error = function(s) {
               console.log('ERROR:' + s);
@@ -308,7 +315,8 @@
               e.stopPropagation();
             }
             scope.user_clicks_branch = function(branch, e) {
-              e.stopPropagation();
+              if (e)
+                e.stopPropagation();
               return expand_branch(branch);
             };
             scope.user_select_branch = function(branch) {
@@ -447,6 +455,14 @@
 
             scope.tree_rows = [];
 
+            on_treeData = function() {
+              on_treeData_change();
+              if (treeDataPromised == false && scope.treeData.$resolved == true) {
+                if (scope.onTreeDataPromised)
+                  scope.onTreeDataPromised();
+                treeDataPromised = true;
+              }
+            };
             on_treeData_change = function() {
               getExpandingProperty();
 
@@ -545,7 +561,7 @@
               return _results;
             };
 
-            scope.$watch('treeData', on_treeData_change, true);
+            scope.$watch('treeData', on_treeData, true);
 
             if (attrs.initialSelection != null) {
               for_each_branch(function(b) {
@@ -562,11 +578,204 @@
               return b.expanded = b.level < expand_level;
             });
 
+            order_up = function(branch) {
+              var parent = get_parent(branch);
+              if (parent) {
+                if (get_first_child(parent).uid == branch.uid) {
+                  return $timeout(function() {
+                    return scope.onOrderUp({
+                      branch: branch,
+                      ebranch: null
+                    });
+                  });
+                } else {
+                  for (var i = 0; i < parent.children.length; i++) {
+                    if (parent.children[i].uid == branch.uid) {
+                      var pre_branch = get_prev_sibling(branch);
+                      parent.children.splice(i - 1, 2);
+                      parent.children.splice(i - 1, 0, branch, pre_branch);
+                      return $timeout(function() {
+                        return scope.onOrderUp({
+                          branch: branch,
+                          ebranch: pre_branch
+                        });
+                      });
+                    }
+                  }
+                }
+              } else {
+                if (scope.treeData[0].uid == branch.uid) {
+                  return $timeout(function() {
+                    return scope.onOrderUp({
+                      branch: branch,
+                      ebranch: null
+                    });
+                  });
+                } else {
+                  for (var i = 0; i < scope.treeData.length; i++) {
+                    if (scope.treeData[i].uid == branch.uid) {
+                      var pre_branch = get_prev_sibling(branch);
+                      scope.treeData.splice(i - 1, 2);
+                      scope.treeData.splice(i - 1, 0, branch, pre_branch);
+                      return $timeout(function() {
+                        return scope.onOrderUp({
+                          branch: branch,
+                          ebranch: pre_branch
+                        });
+                      });
+                    }
+                  }
+                }
+              }
+            };
+            order_down = function(branch) {
+              var parent = get_parent(branch);
+              if (parent) {
+                if (get_last_child(parent).uid == branch.uid) {
+                  return $timeout(function() {
+                    return scope.onOrderDown({
+                      branch: branch,
+                      ebranch: null
+                    });
+                  });
+                } else {
+                  for (var i = 0; i < parent.children.length; i++) {
+                    if (parent.children[i].uid == branch.uid) {
+                      var next_branch = get_next_sibling(branch);
+                      parent.children.splice(i, 2);
+                      parent.children.splice(i, 0, next_branch, branch);
+                      return $timeout(function() {
+                        return scope.onOrderDown({
+                          branch: branch,
+                          ebranch: next_branch
+                        });
+                      });
+                    }
+                  }
+                }
+              } else {
+                if (scope.treeData[scope.treeData.length - 1].uid == branch.uid) {
+                  return $timeout(function() {
+                    return scope.onOrderDown({
+                      branch: branch,
+                      ebranch: null
+                    });
+                  });
+                } else {
+                  for (var i = 0; i < scope.treeData.length; i++) {
+                    if (scope.treeData[i].uid == branch.uid) {
+                      var next_branch = get_next_sibling(branch);
+                      scope.treeData.splice(i, 2);
+                      scope.treeData.splice(i, 0, next_branch, branch);
+                      return $timeout(function() {
+                        return scope.onOrderDown({
+                          branch: branch,
+                          ebranch: next_branch
+                        });
+                      });
+                    }
+                  }
+                }
+              }
+            };
+            get_prev_sibling = function(b) {
+              var i, siblings;
+              if (b == null) {
+                b = selected_branch;
+              }
+              siblings = get_siblings(b);
+              n = siblings.length;
+              i = siblings.indexOf(b);
+              if (i > 0) {
+                return siblings[i - 1];
+              }
+            };
+            get_siblings = function(b) {
+              var p, siblings;
+              if (b == null) {
+                b = selected_branch;
+              }
+              if (b != null) {
+                p = get_parent(b);
+                if (p) {
+                  siblings = p.children;
+                } else {
+                  siblings = scope.treeData;
+                }
+                return siblings;
+              }
+            };
 
+            get_first_child = function(b) {
+              var _ref;
+              if (b == null) {
+                b = selected_branch;
+              }
+              if (b != null) {
+                if (((_ref = b.children) != null ? _ref.length : void 0) > 0) {
+                  return b.children[0];
+                }
+              }
+            };
+            get_last_child = function(b) {
+              var _ref;
+              if (b == null) {
+                b = selected_branch;
+              }
+              if (b != null) {
+                if (((_ref = b.children) != null ? _ref.length : void 0) > 0) {
+                  return b.children[_ref.length - 1];
+                }
+              }
+            };
+            get_next_sibling = function(b) {
+              var i, siblings;
+              if (b == null) {
+                b = selected_branch;
+              }
+              if (b != null) {
+                siblings = get_siblings(b);
+                n = siblings.length;
+                i = siblings.indexOf(b);
+                if (i < n) {
+                  return siblings[i + 1];
+                }
+              }
+            };
 
+            function find_branch(arr, obj) {
+              if (arr.length > 0) {
+                for (var i = 0; i < arr.length; i++) {
+                  var all = true;
+                  for (var key in obj) {
+                    if (arr[i][key] != obj[key]) {
+                      all = false;
+                      break;
+                    }
+                  }
+                  if (all == true)
+                    return arr[i];
+                }
+              }
+              return null;
+            }
+            find_tree_by_condition = function(obj) {
+              return find_branch(scope.treeData, obj);
+            };
+            find_branch_by_condition = function(parent, obj) {
+              if (parent)
+                return find_branch(parent.children, obj);
+              return null;
+            };
             if (scope.treeControl != null) {
               if (angular.isObject(scope.treeControl)) {
                 tree = scope.treeControl;
+                tree.order_up = function(branch) {
+                  return order_up(branch);
+                };
+                tree.order_down = function(branch) {
+                  return order_down(branch);
+                };
                 tree.expand_all = function() {
                   return for_each_branch(function(b, level) {
                     return b.expanded = true;
@@ -627,6 +836,9 @@
                   tree.add_branch(null, new_branch);
                   return new_branch;
                 };
+                tree.expand_branch_remote = function(branch) {
+                  return expand_branch(branch);
+                };
                 tree.expand_branch = function(b) {
                   if (b == null) {
                     b = tree.get_selected_branch();
@@ -646,45 +858,13 @@
                   }
                 };
                 tree.get_siblings = function(b) {
-                  var p, siblings;
-                  if (b == null) {
-                    b = selected_branch;
-                  }
-                  if (b != null) {
-                    p = tree.get_parent_branch(b);
-                    if (p) {
-                      siblings = p.children;
-                    } else {
-                      siblings = scope.treeData;
-                    }
-                    return siblings;
-                  }
+                  return get_siblings(b);
                 };
                 tree.get_next_sibling = function(b) {
-                  var i, siblings;
-                  if (b == null) {
-                    b = selected_branch;
-                  }
-                  if (b != null) {
-                    siblings = tree.get_siblings(b);
-                    n = siblings.length;
-                    i = siblings.indexOf(b);
-                    if (i < n) {
-                      return siblings[i + 1];
-                    }
-                  }
+                  return get_next_sibling(b);
                 };
                 tree.get_prev_sibling = function(b) {
-                  var i, siblings;
-                  if (b == null) {
-                    b = selected_branch;
-                  }
-                  siblings = tree.get_siblings(b);
-                  n = siblings.length;
-                  i = siblings.indexOf(b);
-                  if (i > 0) {
-                    return siblings[i - 1];
-                  }
+                  return get_prev_sibling(b);
                 };
                 tree.select_next_sibling = function(b) {
                   var next;
@@ -711,15 +891,10 @@
                   }
                 };
                 tree.get_first_child = function(b) {
-                  var _ref;
-                  if (b == null) {
-                    b = selected_branch;
-                  }
-                  if (b != null) {
-                    if (((_ref = b.children) != null ? _ref.length : void 0) > 0) {
-                      return b.children[0];
-                    }
-                  }
+                  return get_first_child(b);
+                };
+                tree.get_last_child = function(b) {
+                  return get_last_child(b);
                 };
                 tree.get_closest_ancestor_next_sibling = function(b) {
                   var next, parent;
@@ -787,12 +962,20 @@
                     }
                   }
                 };
-                tree.set_branch_loaded = function(branch) {
+                tree.set_branch_loaded = function(branch, callback) {
                   if (branch)
                     branch.loaded = true;
+                  if (callback)
+                    callback(branch);
                 };
+                tree.find_branch_by_condition = function(parent, obj) {
+                  return find_branch_by_condition(parent, obj);
+                };
+                tree.find_tree_by_condition = function(obj) {
+                  return find_tree_by_condition(obj);
+                }
 
-                return tree.select_prev_branch = function(b) {
+                tree.select_prev_branch = function(b) {
                   var prev;
                   if (b == null) {
                     b = selected_branch;
@@ -805,6 +988,7 @@
                     }
                   }
                 };
+                return tree;
               }
             }
           }

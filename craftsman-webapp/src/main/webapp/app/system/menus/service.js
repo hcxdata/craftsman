@@ -18,6 +18,9 @@ angular.module('services', []).factory('menuFetchService', function($resource) {
 		},
 		change: {
 			method: 'PUT'
+		},
+		order: {
+			method: 'PUT'
 		}
 	});
 });
