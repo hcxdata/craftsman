@@ -13,7 +13,8 @@ import java.util.List;
  */
 public interface SysMenuDao extends PagingAndSortingRepository<SysMenusEntity, Integer> {
 
-    public List<SysMenusEntity> findByParentIdOrderByOrdersAsc(Integer parentId);
+    @Query(value = "select new com.bigbata.craftsman.dao.model.SysMenusEntity(s.id ,s.parentId,text,orders,hrefTarget,(select count(1) from SysMenusEntity e where e.parentId = s.id) as childCount) from SysMenusEntity s where s.parentId = :parentId order by orders asc")
+    public List<SysMenusEntity> findByParentIdOrderByOrdersAsc(@Param(value = "parentId") Integer parentId);
 
     @Query(value = "select count(s.id) from SysMenusEntity s where s.parentId = :parentId")
     public Integer getCountByParentId(@Param(value = "parentId") Integer parentId);
@@ -27,6 +28,6 @@ public interface SysMenuDao extends PagingAndSortingRepository<SysMenusEntity, I
     public void updateOrderFromParentIdAndOrder(@Param("parentId") Integer parentId, @Param("newOrders") Integer newOrders, @Param("oldOrders") Integer oldOrders);
 
     @Modifying
-    @Query("update SysMenusEntity set parentId = :parentId where id = :id")
-    public void upParentId(@Param("id") Integer id, @Param("parentId") Integer parentId);
+    @Query("update SysMenusEntity set parentId = :parentId,orders = :orders where id = :id")
+    public void upParentId(@Param("id") Integer id, @Param("parentId") Integer parentId, @Param("orders") Integer orders);
 }

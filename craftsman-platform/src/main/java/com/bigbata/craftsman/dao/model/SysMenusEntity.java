@@ -13,6 +13,34 @@ public class SysMenusEntity {
     private String text;
     private Integer orders;
     private String hrefTarget;
+    private Long childCount;
+
+    public SysMenusEntity() {
+    }
+
+    public SysMenusEntity(int id, Integer parentId, String text, Integer orders, String hrefTarget, Long childCount) {
+        this.id = id;
+        this.parentId = parentId;
+        this.text = text;
+        this.orders = orders;
+        this.hrefTarget = hrefTarget;
+        this.childCount = childCount;
+
+    }
+
+    public void setChildCount(Long childCount) {
+        this.childCount = childCount;
+    }
+
+
+    @Transient
+    public boolean isLeaf() {
+        if (childCount != null && childCount > 0)
+            return false;
+        else
+            return true;
+    }
+
 
     @Id
     @Column(name = "id", nullable = false, insertable = true, updatable = true)

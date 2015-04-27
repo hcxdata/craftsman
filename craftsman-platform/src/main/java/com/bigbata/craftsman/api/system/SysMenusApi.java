@@ -59,7 +59,7 @@ public class SysMenusApi {
         List<SysMenusEntity> menus = menuDao.findByParentIdOrderByOrdersAsc(id);
         if (menus.size() > 0) {
             for (SysMenusEntity menu : menus) {
-                delWithAllChildren(id);
+                delWithAllChildren(menu.getId());
             }
         }
         menuDao.delete(id);
@@ -108,11 +108,15 @@ public class SysMenusApi {
     @Transactional
     @RequestMapping(value = "/{id}", params = {"action=changeParent"}, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void changeParent(Integer id, Integer parentId) {
-        if (childHaveParent(id, parentId)) {
+    public void changeParent(@RequestBody SysMenusEntity menu) {
+        if (childHaveParent(menu.getId(), menu.getParentId())) {
             throw new ME("导致循环引用，禁止操作！！");
-        } else
-            menuDao.upParentId(id, parentId);
+        } else {
+            SysMenusEntity menusEntity = menuDao.findOne(menu.getId());
+            menuDao.upParentId(menu.getId(), menu.getParentId(), menuDao.getCountByParentId(menu.getParentId()) + 1);
+            //更新其他节点的排序
+            menuDao.upOrderFrom(menusEntity.getParentId(), menusEntity.getOrders());
+        }
     }
 
     //判定节点是否循环引用
