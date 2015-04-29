@@ -16,8 +16,8 @@ angular.module('controllers', []).controller('IndexController',
             $scope.page.fresh();
         };
 
-        $scope.delete = function(id){
-            Fun.deleteMsgBox(function(){
+        $scope.delete = function (id) {
+            Fun.msg.delConfirm(function () {
                 $location.url("/" + id + "/del");
                 $scope.$apply();
             });
@@ -26,7 +26,7 @@ angular.module('controllers', []).controller('IndexController',
     function ($scope, $location, userService) {
         $scope.save = function () {
             userService.save($scope.user, function () {
-                Fun.notifyInfo();
+                Fun.msg.notifyInfo();
                 $location.path("/index");
             });
         }
@@ -40,7 +40,7 @@ angular.module('controllers', []).controller('IndexController',
         });
         $scope.save = function () {
             userService.update($scope.user, function () {
-                Fun.notifyInfo();
+                Fun.msg.notifyInfo();
                 $location.path("/index");
             });
         }
@@ -50,7 +50,7 @@ angular.module('controllers', []).controller('IndexController',
         userService.delete({
             id: $routeParams.id
         }, function () {
-            Fun.notifyInfo();
+            Fun.msg.notifyInfo();
             $location.path("/index");
         });
 

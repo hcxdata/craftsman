@@ -17,7 +17,8 @@ Fun.merge = function (obj1, obj2) { // Our merge function
     return result;
 };
 
-Fun.notify = function (data) {
+Fun.msg = {};
+Fun.msg.notify = function (data) {
     if (/^(alert)|(warning)|(info)$/.test(data.status)) {
         var colors = {
             alert: "#d26911",
@@ -39,11 +40,11 @@ Fun.notify = function (data) {
             content: data.message,
             color: colors[data.status],
             icon: icons[data.status],
-            timeout: 6000
+            timeout: 3000
         });
     }
 };
-Fun.notifyMessage = function (status, title, message) {
+Fun.msg.notifyMessage = function (status, title, message) {
     if (!message) {
         message = title;
         title = null;
@@ -53,29 +54,35 @@ Fun.notifyMessage = function (status, title, message) {
         title: title,
         message: message
     }
-    Fun.notify(data);
+    Fun.msg.notify(data);
 }
-Fun.notifyInfo = function (title, message) {
-    Fun.notifyMessage("info", title, message);
+Fun.msg.notifyInfo = function (title, message) {
+    Fun.msg.notifyMessage("info", title, message);
 }
-Fun.notifyAlert = function (title, message) {
-    Fun.notifyMessage("alert", title, message);
+Fun.msg.notifyAlert = function (title, message) {
+    Fun.msg.notifyMessage("alert", title, message);
 }
-Fun.notifyWarn = function (title, message) {
-    Fun.notifyMessage("waring", title, message);
+Fun.msg.notifyWarn = function (title, message) {
+    Fun.msg.notifyMessage("warning", title, message);
 }
+Fun.msg.confirmSource = function (config) {
+    $.SmartMessageBox(config, config.fun);
 
-Fun.deleteMsgBox = function (yepoCallback, nopeCallback) {
-    $.SmartMessageBox({
-        title: "操作提示!",
-        content: "是否确定删除记录!",
+}
+Fun.msg.confirm = function (title, content, yesCallback, noCallback) {
+    var data = {
+        title: title ? title : "操作提示!",
+        content: content ? content : "是否确定?",
         buttons: '[否][是]'
-    }, function (ButtonPressed) {
-        if (ButtonPressed === "是") {
-            yepoCallback();
-        }
-        else if (ButtonPressed === "否") {
-            nopeCallback();
-        }
-    });
+    }
+    var fun = function (btn) {
+        if (btn === '是' && yesCallback)
+            yesCallback();
+        else if (noCallback)
+            noCallback();
+    }
+    $.SmartMessageBox(data, fun);
+}
+Fun.msg.delConfirm = function (yepoCallback, nopeCallback) {
+    Fun.msg.confirm("<i class=\"fa fa-question txt-color-orangeDark\"></i><span class=\"txt-color-orangeDark\"><strong>操作提示</strong></span>", "是否确认删除记录?", yepoCallback, nopeCallback);
 };

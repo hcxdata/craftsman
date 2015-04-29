@@ -43,8 +43,8 @@
                            class="table table-striped table-bordered table-hover dataTable ">
                         <thead>
                         <tr>
-                            <th>类型代码</th>
                             <th>类型名称</th>
+                            <th>类型代码</th>
                             <th>操作</th>
                         </tr>
                         </thead>
@@ -98,7 +98,6 @@
                         <tr>
                             <th>参数名称</th>
                             <th>参数代码</th>
-                            <th>字典类型编码</th>
                             <th>排序</th>
                             <th>操作</th>
                         </tr>
@@ -107,11 +106,11 @@
                         <tr ng-repeat="dict in page.list track by $index" class="move" data-key="{{dict.id}}">
                             <td>{{dict.name}}</td>
                             <td>{{dict.code}}</td>
-                            <td>{{dict.typeCode}}</td>
                             <td><a ng-click="orderUp(dict.id)">上移</a> | <a
                                     ng-click="orderDown(dict.id)">下移</a>
                             </td>
-                            <td><a ng-href="#/{{dict.id}}/dictEdit">修改</a> | <a ng-click="delete(dict.id)">删除</a>
+                            <td><a ng-href="#/{{dict.id}}/dictEdit">修改</a> | <a
+                                    ng-click="delete(dict.id,dict.typeCode)">删除</a>
                             </td>
                         </tr>
                         </tbody>

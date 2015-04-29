@@ -36,15 +36,15 @@ angular.module('controllers').controller(/*bug 或者需要改进 : 在未选择
             if (typeId && typeCode) {
                 $location.url("/dictNew?typeId=" + typeId + "&typeCode=" + typeCode);
             } else {
-                Fun.notifyAlert(
+                Fun.msg.notifyAlert(
                     "请选择数据字典类型!"
                 );
             }
         };
 
-        $scope.delete = function (id) {
-            Fun.deleteMsgBox(function () {
-                $location.url("/" + id + "/dictDel");
+        $scope.delete = function (id, typeCode) {
+            Fun.msg.delConfirm(function () {
+                $location.url("/" + typeCode + "/" + id + "/dictDel");
                 $scope.$apply();
             });
         };
@@ -52,8 +52,8 @@ angular.module('controllers').controller(/*bug 或者需要改进 : 在未选择
     function ($scope, $location, dictService) {
         $scope.save = function () {
             dictService.save($scope.dict, function () {
-                Fun.notifyInfo();
-                $location.path("/index");
+                Fun.msg.notifyInfo();
+                $location.path("/" + $scope.dict.typeCode + "/index");
             });
         }
         $scope.dict = {};
@@ -68,7 +68,7 @@ angular.module('controllers').controller(/*bug 或者需要改进 : 在未选择
         });
         $scope.save = function () {
             dictService.update($scope.dict, function () {
-                Fun.notifyInfo();
+                Fun.msg.notifyInfo();
                 $location.path("/" + $scope.dict.typeCode + "/index");
             });
         }
@@ -78,8 +78,8 @@ angular.module('controllers').controller(/*bug 或者需要改进 : 在未选择
         dictService.delete({
             id: $routeParams.id
         }, function () {
-            Fun.notifyInfo();
-            $location.path("/index");
+            Fun.msg.notifyInfo();
+            $location.path("/" + $routeParams.typeCode + "/index");
         });
 
     });
