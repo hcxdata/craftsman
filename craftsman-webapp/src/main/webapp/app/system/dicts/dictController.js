@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('controllers').controller('IndexDictController',
+angular.module('controllers').controller(/*bug 或者需要改进 : 在未选择字典类型的情况下页面加载也会请求数据字典数据*/ 'IndexDictController',
     function ($scope, $location, dictService, Paginator) {
         $scope.page = Paginator({
             resource: dictService
@@ -32,11 +32,28 @@ angular.module('controllers').controller('IndexDictController',
             });
         };
 
+        $scope.addDict = function (typeId, typeCode) {
+            if (typeId && typeCode) {
+                $location.url("/dictNew?typeId=" + typeId + "&typeCode=" + typeCode);
+            } else {
+                Fun.msg.notifyAlert(
+                    "请选择数据字典类型!"
+                );
+            }
+        };
+
+        $scope.delete = function (id, typeCode) {
+            Fun.msg.delConfirm(function () {
+                $location.url("/" + typeCode + "/" + id + "/dictDel");
+                $scope.$apply();
+            });
+        };
     }).controller('NewDictController',
     function ($scope, $location, dictService) {
         $scope.save = function () {
             dictService.save($scope.dict, function () {
-                $location.path("/index");
+                Fun.msg.notifyInfo();
+                $location.path("/" + $scope.dict.typeCode + "/index");
             });
         }
         $scope.dict = {};
@@ -51,7 +68,8 @@ angular.module('controllers').controller('IndexDictController',
         });
         $scope.save = function () {
             dictService.update($scope.dict, function () {
-                $location.path("/index");
+                Fun.msg.notifyInfo();
+                $location.path("/" + $scope.dict.typeCode + "/index");
             });
         }
 
@@ -60,7 +78,8 @@ angular.module('controllers').controller('IndexDictController',
         dictService.delete({
             id: $routeParams.id
         }, function () {
-            $location.path("/index");
+            Fun.msg.notifyInfo();
+            $location.path("/" + $routeParams.typeCode + "/index");
         });
 
     });
