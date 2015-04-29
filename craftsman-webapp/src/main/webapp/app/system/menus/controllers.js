@@ -161,10 +161,14 @@ angular.module('controllers', []).controller('IndexController',
             }
         };
         $scope.delete = function () {
-            if ($scope.currentSelectBranch)
-                $location.path("/" + $scope.currentSelectBranch["id"] + "/del");
-            else {
-            }
+            Fun.msg.delConfirm(function () {
+                if ($scope.currentSelectBranch) {
+                    $location.path("/" + $scope.currentSelectBranch["id"] + "/del");
+                    $scope.$apply();
+                }
+                else {
+                }
+            })
         };
     }).controller('NewController',
     function ($scope, $location, menuService) {
@@ -174,6 +178,7 @@ angular.module('controllers', []).controller('IndexController',
         $scope.initChain = $location.$$search.initChain;
         $scope.save = function () {
             menuService.save($scope.menu, function () {
+                Fun.msg.notifyInfo();
                 $location.url("/index?initChain=" + $scope.initChain);
             });
         }
@@ -192,6 +197,7 @@ angular.module('controllers', []).controller('IndexController',
         });
         $scope.save = function () {
             menuService.update($scope.menu, function () {
+                Fun.msg.notifyInfo();
                 $location.url("/index?initChain=" + $scope.initChain);
             });
         };
@@ -204,6 +210,7 @@ angular.module('controllers', []).controller('IndexController',
         menuService.delete({
             id: $routeParams.id
         }, function () {
+            Fun.msg.notifyInfo();
             $location.path("/index");
         });
 
