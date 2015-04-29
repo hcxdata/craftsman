@@ -19,8 +19,8 @@ Get /api/system/menus/0/children
     Content-Type: application/json
     
     [
-        {"id":1,"parentId":0,"text":"菜单","sorts":1,herfTarget:"www.baidu.com",leaf:"true"},
-        {"id":1,"parentId":0,"text":"菜单","sorts":1,herfTarget:"www.baidu.com",leaf:"true"},
+        {"id":1,"parentId":0,"text":"菜单","orders":1,herfTarget:"www.baidu.com",leaf:"true"},
+        {"id":1,"parentId":0,"text":"菜单","orders":1,herfTarget:"www.baidu.com",leaf:"true"},
         ...
     ]
 ~~~~
@@ -40,8 +40,8 @@ Get /api/system/menus/{节点id}/children
     Content-Type: application/json
     
     [
-        {"id":1,"parentId":0,"text":"菜单","sorts":1,herfTarget:"www.baidu.com",leaf:"true"},
-        {"id":1,"parentId":0,"text":"菜单","sorts":1,herfTarget:"www.baidu.com",leaf:"true"},
+        {"id":1,"parentId":0,"text":"菜单","orders":1,herfTarget:"www.baidu.com",leaf:"true"},
+        {"id":1,"parentId":0,"text":"菜单","orders":1,herfTarget:"www.baidu.com",leaf:"true"},
         ...
     ]
 ~~~~
@@ -86,7 +86,7 @@ GET /api/system/menus/{id}
 ~~~~http
     HTTP/1.1 200 OK
     Content-Type: application/json
-        {"id":1,"parentId":0,"text":"菜单","sorts":1,herfTarget:"www.baidu.com",leaf:"true"},
+        {"id":1,"parentId":0,"text":"菜单","orders":1,herfTarget:"www.baidu.com",leaf:"true"},
 ~~~~
 
 
@@ -109,7 +109,7 @@ PUT /api/system/menus
 | `parentId` | 必填 | 上级菜单 |
 | `text` | 必填 | 菜单名称|
 | `herfTarget` | 必填 | 菜单连接地址|
-| `sorts` | 必填 | 菜单排序位置|
+| `orders` | 必填 | 菜单排序位置|
 
 #### 返 回 结 果
 ~~~~http

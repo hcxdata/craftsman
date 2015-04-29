@@ -1,0 +1,50 @@
+<section id="widget-grid">
+    <div class="row">
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
+                 data-widget-editbutton="false">
+                <header>
+					<span class="widget-icon"> <i class="fa fa-table"></i>
+					</span>
+
+                    <h2>菜单列表</h2>
+                </header>
+
+                <!-- widget div-->
+                <div>
+                    <div class="widget-body no-padding">
+                        <div class="container-fluid" style="padding:0;">
+                            <div class="dt-toolbar">
+                                <div class="col-xs-6 col-sm-12">
+                                    <a class="btn btn-default"
+                                       ng-click="add()"><span
+                                            class="glyphicon glyphicon-pencil"></span>添加</a>
+                                    <a class="btn btn-default"
+                                       ng-click="edit()"><span
+                                            class="glyphicon glyphicon-pencil"></span>修改</a>
+                                    <a class="btn btn-default"
+                                       ng-click="delete()"><span
+                                            class="glyphicon glyphicon-pencil"></span>删除</a>
+                                    <a class="btn btn-default"
+                                       ng-click="orderUp()"><span
+                                            class="glyphicon glyphicon-pencil"></span>上移</a>
+                                    <a class="btn btn-default"
+                                       ng-click="orderDown()"><span
+                                            class="glyphicon glyphicon-pencil"></span>下移</a>
+                                    <a class="btn btn-default"
+                                       ng-click="refresh()"><span
+                                            class="glyphicon glyphicon-refresh"></span>刷新</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="container-fluid">
+                            <div class="row">
+                                <tree-grid tree-data="tree_data" col_defs="col_defs" on-expand="my_tree_expand_handler(branch)" on-select="my_tree_select_handler(branch)" on-move-update="move_update(branch , targetBranch)" tree-control="my_tree" on-order-up="branch_order_up(branch , ebranch)" on-order-down="branch_order_down(branch , ebranch)" on-tree-data-promised="expand_branch_chain()"></tree-grid>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+</section>

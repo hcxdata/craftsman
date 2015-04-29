@@ -121,6 +121,9 @@
 <!-- ng-fab-form -->
 <script src="<%=path%>/vendor/js/plugin/ng-fab-form/ng-fab-form.js"></script>
 
+<!-- tree-grid-directive -->
+<script type="text/javascript" src="<%=path%>/vendor/js/plugin/tree-grid-directive/east/tree-grid-directive.js"></script>
+
 <!-- common js -->
 <script src="<%=path%>/frame/js/fun/Fun.js"></script>
 <script src="<%=path%>/frame/js/frame.js"></script>
