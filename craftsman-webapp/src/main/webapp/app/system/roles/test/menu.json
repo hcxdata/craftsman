@@ -1,0 +1,51 @@
+[{
+  "id": 1,
+  "parentId": 0,
+  "text": "菜单",
+  "orders": 1,
+  "hrefTarget": "www.baidu.com",
+  "leaf": true,
+  "checked": true,
+  "children": [{
+    "id": 1,
+    "parentId": 0,
+    "text": "菜单",
+    "orders": 1,
+    "hrefTarget": "www.baidu.com",
+    "leaf": true,
+    "checked": false
+  }, {
+    "id": 1,
+    "parentId": 0,
+    "text": "菜单",
+    "orders": 1,
+    "hrefTarget": "www.baidu.com",
+    "leaf": true,
+    "checked": true
+  }]
+}, {
+  "id": 1,
+  "parentId": 0,
+  "text": "菜单",
+  "orders": 1,
+  "hrefTarget": "www.baidu.com",
+  "leaf": true,
+  "checked": true,
+  "children": [{
+    "id": 1,
+    "parentId": 0,
+    "text": "菜单",
+    "orders": 1,
+    "hrefTarget": "www.baidu.com",
+    "leaf": true,
+    "checked": false
+  }, {
+    "id": 1,
+    "parentId": 0,
+    "text": "菜单",
+    "orders": 1,
+    "hrefTarget": "www.baidu.com",
+    "leaf": true,
+    "checked": true
+  }]
+}]

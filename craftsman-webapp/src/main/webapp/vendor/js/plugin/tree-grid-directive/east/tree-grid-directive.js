@@ -19,8 +19,12 @@
           "       ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"tree-grid-row\">\n" +
           "       <td><a ng-click=\"user_clicks_branch(row.branch, $event)\" ng-mousedown=\"user_clicks_down($event)\" ng-mouseup=\"user_clicks_up($event)\"><i ng-class=\"row.tree_icon\"\n" +
           "              ng-click=\"row.branch.expanded = !row.branch.expanded\"\n" +
-          "              class=\"indented tree-icon\"></i>\n" +
-          "           </a><span class=\"indented tree-label\" ng-click=\"on_user_click(row.branch)\">\n" +
+          "              class=\"indented tree-icon\">\n"+
+          "           <label ng-if=\"row.branch.checked === true\"><input checked type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n"+
+          "           <label ng-if=\"row.branch.checked !== true\"><input type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n"+
+          "           </i>\n" +
+          "           </a>\n" +
+          "            <span class=\"indented tree-label\" ng-click=\"on_user_click(row.branch)\">\n" +
           "             {{row.branch[expandingProperty.field] || row.branch[expandingProperty]}}</span>\n" +
           "       </td>\n" +
           "       <td ng-repeat=\"col in colDefinitions\">\n" +
@@ -133,9 +137,13 @@
             onOrderDown: '&',
             onTreeDataPromised: '&',
             initialSelection: '@',
-            treeControl: '='
+            treeControl: '=',
+            allowMove: '=',
+            allowCheckbox: '='
           },
           link: function(scope, element, attrs) {
+            if(scope.allowCheckbox !== true)
+              scope.allowCheckbox = false;
             var treeDataPromised = false;
             scope.info = {
               position: {
@@ -391,40 +399,44 @@
                 scope.$apply();
             };
             scope.user_mousedown_branch = function(branch, $event) {
-              if (!branch) {
-                if (selected_branch != null) {
-                  selected_branch.selected = false;
+              if (scope.allowMove !== false) {
+                if (!branch) {
+                  if (selected_branch != null) {
+                    selected_branch.selected = false;
+                  }
+                  selected_branch = null;
+                  return;
                 }
-                selected_branch = null;
-                return;
-              }
-              if (branch !== selected_branch) {
-                if (selected_branch != null) {
-                  selected_branch.selected = false;
+                if (branch !== selected_branch) {
+                  if (selected_branch != null) {
+                    selected_branch.selected = false;
+                  }
+                  branch.selected = true;
+                  selected_branch = branch;
                 }
-                branch.selected = true;
-                selected_branch = branch;
-              }
-              scope.moseMoveHandler($event, 1);
-              scope.info.show = true;
-              scope.info.content = branch;
-              element.css({
-                "cursor": "move"
-              });
-              element.on('mousemove', scope.moseMoveHandler);
-              element.on('mouseup', function() {
-                element.unbind('mousemove', scope.moseMoveHandler);
+                scope.moseMoveHandler($event, 1);
+                scope.info.show = true;
+                scope.info.content = branch;
                 element.css({
-                  "cursor": "default"
+                  "cursor": "move"
                 });
-              });
+                element.on('mousemove', scope.moseMoveHandler);
+                element.on('mouseup', function() {
+                  element.unbind('mousemove', scope.moseMoveHandler);
+                  element.css({
+                    "cursor": "default"
+                  });
+                });
+              }
             };
             scope.user_mouseup_branch = function(branch, $event) {
-              scope.moseMoveHandler($event, 1);
-              scope.info.show = false;
-              var selected_branch_temp = selected_branch;
-              if (branch !== selected_branch) {
-                return move_update_branch(branch, selected_branch_temp);
+              if (scope.allowMove !== false) {
+                scope.moseMoveHandler($event, 1);
+                scope.info.show = false;
+                var selected_branch_temp = selected_branch;
+                if (branch !== selected_branch) {
+                  return move_update_branch(branch, selected_branch_temp);
+                }
               }
             };
             get_parent = function(child) {
