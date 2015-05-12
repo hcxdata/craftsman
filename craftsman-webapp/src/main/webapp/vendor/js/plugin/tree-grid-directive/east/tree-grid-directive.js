@@ -19,9 +19,9 @@
           "       ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"tree-grid-row\">\n" +
           "       <td><a ng-click=\"user_clicks_branch(row.branch, $event)\" ng-mousedown=\"user_clicks_down($event)\" ng-mouseup=\"user_clicks_up($event)\"><i ng-class=\"row.tree_icon\"\n" +
           "              ng-click=\"row.branch.expanded = !row.branch.expanded\"\n" +
-          "              class=\"indented tree-icon\">\n"+
-          "           <label ng-if=\"row.branch.checked === true\"><input checked type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n"+
-          "           <label ng-if=\"row.branch.checked !== true\"><input type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n"+
+          "              class=\"indented tree-icon\">\n" +
+          "           <label ng-if=\"row.branch.checked === true\"><input ng-click=\"user_click_checkbox(row.branch,$event)\" ng-mousedown=\"user_mousedown_checkbox(row.branch,$event)\" ng-mouseup=\"user_mouseup_checkbox(row.branch,$event)\" checked type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n" +
+          "           <label ng-if=\"row.branch.checked !== true\"><input ng-click=\"user_click_checkbox(row.branch,$event)\" ng-mousedown=\"user_mousedown_checkbox(row.branch,$event)\" ng-mouseup=\"user_mouseup_checkbox(row.branch,$event)\" type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n" +
           "           </i>\n" +
           "           </a>\n" +
           "            <span class=\"indented tree-label\" ng-click=\"on_user_click(row.branch)\">\n" +
@@ -142,7 +142,7 @@
             allowCheckbox: '='
           },
           link: function(scope, element, attrs) {
-            if(scope.allowCheckbox !== true)
+            if (scope.allowCheckbox !== true)
               scope.allowCheckbox = false;
             var treeDataPromised = false;
             scope.info = {
@@ -438,6 +438,18 @@
                   return move_update_branch(branch, selected_branch_temp);
                 }
               }
+            };
+            scope.user_mouseup_checkbox = function(branch, $event) {
+              $event.stopPropagation();
+              $event.cancelBubble = true;
+            };
+            scope.user_mousedown_checkbox = function(branch, $event) {
+              $event.stopPropagation();
+              $event.cancelBubble = true;
+            };
+            scope.user_click_checkbox = function(branch, $event) {
+              $event.stopPropagation();
+              $event.cancelBubble = true;
             };
             get_parent = function(child) {
               var parent;
