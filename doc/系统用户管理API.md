@@ -92,7 +92,7 @@ GET /api/system/users/{id}
 
 ### 修改用户
 
-PUT /api/system/users
+PUT /api/system/users/{id}
 
 #### 请求参数
 

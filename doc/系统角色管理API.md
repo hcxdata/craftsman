@@ -90,7 +90,7 @@ GET /api/system/roles/{id}
 
 ### 修改角色
 
-PUT /api/system/roles
+PUT /api/system/roles/{id}
 
 #### 请求参数
 
@@ -114,7 +114,7 @@ PUT /api/system/roles
 ~~~~
 
 ### 查看角色菜单
-Get /api/system/role/{roleId}/menus
+Get /api/system/roles/{roleId}/menus
 
 #### 请求参数
 

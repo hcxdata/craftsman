@@ -1,15 +1,15 @@
 'use strict';
 
 angular.module('controllers').controller('IndexMenuController',
-    function($scope, $location, menuService) {
-        $scope.$on("refreshAndShowMenuListFromIndex", function(e, data) {
+    function ($scope, $location, menuService) {
+        $scope.$on("refreshAndShowMenuListFromIndex", function (e, data) {
             $scope.refresh(data.id);
         });
-        $scope.$on('getRoleFromIndex', function(e, data) {
+        $scope.$on('getRoleFromIndex', function (e, data) {
             $scope.role = data;
         });
         /*刷新*/
-        $scope.refresh = function(roleid) {
+        $scope.refresh = function (roleid) {
             if (roleid !== undefined)
                 $scope.tree_data = menuService.query({
                     roleid: roleid
@@ -20,20 +20,13 @@ angular.module('controllers').controller('IndexMenuController',
             expanded_all = false;
         };
         /*列定义*/
-        $scope.col_defs = [{
-            field: "hrefTarget",
-            displayName: "链接地址"
-        }, {
-            field: "leaf",
-            displayName: "是否叶子节点",
-            cellTemplate: '<text ng-if="row.branch[col.field] === true">是</text><text ng-if="row.branch[col.field] === false">否</text>'
-        }];
+        $scope.col_defs = [];
         // 树控制器
         $scope.my_tree = {};
         // 初始化还未展开
         var expanded_all = false;
         // 当treeData数据发生变化，就会调用次函数
-        $scope.expand_branch_all = function() {
+        $scope.expand_branch_all = function () {
             if (expanded_all === false) {
                 // 展开所有节点
                 $scope.my_tree.expand_all();
@@ -44,10 +37,10 @@ angular.module('controllers').controller('IndexMenuController',
 
         $scope.refresh();
 
-        $scope.save = function() {
+        $scope.save = function () {
             var data = {
-                id: $scope.role.id,
-                menus: (function() {
+                roleid: $scope.role.id,
+                menus: (function () {
                     function d(data) {
                         if (data.checked === true) {
                             ids.push(data.id);
@@ -68,7 +61,7 @@ angular.module('controllers').controller('IndexMenuController',
                     return ids;
                 }())
             };
-            menuService.update(data, function() {
+            menuService.update(data, function () {
                 Fun.msg.notifyInfo();
             });
         };
