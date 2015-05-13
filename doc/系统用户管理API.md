@@ -117,4 +117,47 @@ PUT /api/system/users/{id}
     {"status":"500","code":"500001","message":"该用户已存在","developMessage":null,"infoLink":null}
 ~~~~
 
+### 查看用户角色
+Get /api/system/users/{userid}/roles
 
+#### 请求参数
+
+|       名称      |      |    描述    |
+|-----------------|------|------------|
+
+#### 返 回 结 果
+~~~~http
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+
+    [
+        {"id":1,"name":"admin",checked:true},
+        {"id":1,"name":"test",checked:false},
+        ...
+    ]
+~~~~
+
+### 修改角色菜单
+
+PUT /api/system/users/{userid}/roles
+
+#### 请求参数
+
+|       名称      |      |    描述    |
+|-----------------|------|------------|
+| `id` | 必填 | 用户id |
+| `roles` | 必填 | 角色id列表|
+
+#### 返 回 结 果
+~~~~http
+    HTTP/1.1 200 OK
+    Content-Type: application/json
+~~~~
+
+
+~~~~http
+    HTTP/1.1 500 Server Error
+    Content-Type: application/json
+
+    {"status":"500","code":"500001","message":"","developMessage":null,"infoLink":null}
+~~~~
