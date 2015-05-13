@@ -815,7 +815,7 @@
             };
             // checkbox选中所有父节点
             check_all_parent = function(branch) {
-              if (branch) {
+              while (branch) {
                 check_parent(branch);
                 branch = get_parent(branch);
               }
