@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-angular.module('services', []).factory('userService', function ($resource) {
+angular.module('services').factory('userService', function ($resource) {
     return $resource(Main.rootPath + '/api/system/users/:id', {
         id: '@id'
     }, {

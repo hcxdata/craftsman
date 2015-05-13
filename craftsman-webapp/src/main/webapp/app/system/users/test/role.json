@@ -1,0 +1,25 @@
+[{
+	"id": 1,
+	"name": "admin",
+	"checked": true
+}, {
+	"id": 2,
+	"name": "test",
+	"checked": false
+}, {
+	"id": 3,
+	"name": "test",
+	"checked": true
+}, {
+	"id": 4,
+	"name": "test",
+	"checked": true
+}, {
+	"id": 5,
+	"name": "test",
+	"checked": true
+}, {
+	"id": 6,
+	"name": "test",
+	"checked": false
+}]
