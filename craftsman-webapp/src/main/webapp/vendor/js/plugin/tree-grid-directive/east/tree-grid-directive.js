@@ -19,8 +19,12 @@
           "       ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"tree-grid-row\">\n" +
           "       <td><a ng-click=\"user_clicks_branch(row.branch, $event)\" ng-mousedown=\"user_clicks_down($event)\" ng-mouseup=\"user_clicks_up($event)\"><i ng-class=\"row.tree_icon\"\n" +
           "              ng-click=\"row.branch.expanded = !row.branch.expanded\"\n" +
-          "              class=\"indented tree-icon\"></i>\n" +
-          "           </a><span class=\"indented tree-label\" ng-click=\"on_user_click(row.branch)\">\n" +
+          "              class=\"indented tree-icon\">\n" +
+          "           </i>\n" +
+          "           </a>\n" +
+          "           <label ng-if=\"row.branch.checked === true\" class=\"indented tree-checkbox\"><input ng-click=\"user_click_checkbox(row.branch,$event)\" ng-mousedown=\"user_mousedown_checkbox(row.branch,$event)\" ng-mouseup=\"user_mouseup_checkbox(row.branch,$event)\" checked type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n" +
+          "           <label ng-if=\"row.branch.checked !== true\" class=\"indented tree-checkbox\"><input ng-click=\"user_click_checkbox(row.branch,$event)\" ng-mousedown=\"user_mousedown_checkbox(row.branch,$event)\" ng-mouseup=\"user_mouseup_checkbox(row.branch,$event)\" type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n" +
+          "            <span class=\"indented tree-label\" ng-click=\"on_user_click(row.branch)\">\n" +
           "             {{row.branch[expandingProperty.field] || row.branch[expandingProperty]}}</span>\n" +
           "       </td>\n" +
           "       <td ng-repeat=\"col in colDefinitions\">\n" +
@@ -133,10 +137,13 @@
             onOrderDown: '&',
             onTreeDataPromised: '&',
             initialSelection: '@',
-            treeControl: '='
+            treeControl: '=',
+            allowMove: '=',
+            allowCheckbox: '='
           },
           link: function(scope, element, attrs) {
-            var treeDataPromised = false;
+            if (scope.allowCheckbox !== true)
+              scope.allowCheckbox = false;
             scope.info = {
               position: {
                 left: 0,
@@ -149,6 +156,9 @@
             var on_treeData_change, select_branch, move_update_branch, selected_branch, tree, move_branch, remove_child, order_up, order_down;
             var get_prev_sibling, get_siblings, get_first_child, get_next_sibling, get_last_child;
             var find_branch_by_condition, find_tree_by_condition, on_treeData;
+            var check_parent, check_all_parent, uncheck_chilren, uncheck_all_children, get_children;
+            var check_children, check_all_children;
+            var is_all_children_checked, is_all_children_unchecked, uncheck_parent, uncheck_all_parent;
 
             error = function(s) {
               console.log('ERROR:' + s);
@@ -391,41 +401,70 @@
                 scope.$apply();
             };
             scope.user_mousedown_branch = function(branch, $event) {
-              if (!branch) {
-                if (selected_branch != null) {
-                  selected_branch.selected = false;
+              if (scope.allowMove !== false) {
+                if (!branch) {
+                  if (selected_branch != null) {
+                    selected_branch.selected = false;
+                  }
+                  selected_branch = null;
+                  return;
                 }
-                selected_branch = null;
-                return;
-              }
-              if (branch !== selected_branch) {
-                if (selected_branch != null) {
-                  selected_branch.selected = false;
+                if (branch !== selected_branch) {
+                  if (selected_branch != null) {
+                    selected_branch.selected = false;
+                  }
+                  branch.selected = true;
+                  selected_branch = branch;
                 }
-                branch.selected = true;
-                selected_branch = branch;
-              }
-              scope.moseMoveHandler($event, 1);
-              scope.info.show = true;
-              scope.info.content = branch;
-              element.css({
-                "cursor": "move"
-              });
-              element.on('mousemove', scope.moseMoveHandler);
-              element.on('mouseup', function() {
-                element.unbind('mousemove', scope.moseMoveHandler);
+                scope.moseMoveHandler($event, 1);
+                scope.info.show = true;
+                scope.info.content = branch;
                 element.css({
-                  "cursor": "default"
+                  "cursor": "move"
                 });
-              });
+                element.on('mousemove', scope.moseMoveHandler);
+                element.on('mouseup', function() {
+                  element.unbind('mousemove', scope.moseMoveHandler);
+                  element.css({
+                    "cursor": "default"
+                  });
+                });
+              }
             };
             scope.user_mouseup_branch = function(branch, $event) {
-              scope.moseMoveHandler($event, 1);
-              scope.info.show = false;
-              var selected_branch_temp = selected_branch;
-              if (branch !== selected_branch) {
-                return move_update_branch(branch, selected_branch_temp);
+              if (scope.allowMove !== false) {
+                scope.moseMoveHandler($event, 1);
+                scope.info.show = false;
+                var selected_branch_temp = selected_branch;
+                if (branch !== selected_branch) {
+                  return move_update_branch(branch, selected_branch_temp);
+                }
               }
+            };
+            scope.user_mouseup_checkbox = function(branch, $event) {
+              halt($event);
+            };
+            scope.user_mousedown_checkbox = function(branch, $event) {
+              halt($event);
+            };
+            scope.user_click_checkbox = function(branch, $event) {
+              halt($event);
+              if (branch.checked === true) {
+                branch.checked = false;
+                uncheck_all_children(branch);
+                uncheck_all_parent(branch);
+              } else {
+                branch.checked = true;
+                check_all_parent(branch);
+                check_all_children(branch);
+              }
+            };
+
+            function halt($event) {
+              $event.preventDefault();
+              $event.stopPropagation();
+              $event.returnValue = false;
+              $event.cancelBubble = true;
             };
             get_parent = function(child) {
               var parent;
@@ -457,10 +496,9 @@
 
             on_treeData = function() {
               on_treeData_change();
-              if (treeDataPromised == false && scope.treeData.$resolved == true) {
+              if (scope.treeData.$resolved == true) {
                 if (scope.onTreeDataPromised)
                   scope.onTreeDataPromised();
-                treeDataPromised = true;
               }
             };
             on_treeData_change = function() {
@@ -767,9 +805,151 @@
                 return find_branch(parent.children, obj);
               return null;
             };
+            // checkbox选中父节点
+            check_parent = function(branch) {
+              if (branch) {
+                var p = get_parent(branch);
+                if (p)
+                  p.checked = true;
+              }
+            };
+            // checkbox选中所有父节点
+            check_all_parent = function(branch) {
+              while (branch) {
+                check_parent(branch);
+                branch = get_parent(branch);
+              }
+            };
+            // checkbox不选中子节点
+            uncheck_chilren = function(branch) {
+              if (branch) {
+                var children = get_children(branch);
+                if (children && children.length > 0) {
+                  for (var i = 0; i < children.length; i++) {
+                    children[i].checked = false;
+                  }
+                }
+              }
+            };
+            // checkbox不选中所有子节点
+            uncheck_all_children = function(branch) {
+              uncheck_chilren(branch);
+              var children = get_children(branch);
+              if (children && children.length > 0) {
+                for (var i = 0; i < children.length; i++) {
+                  uncheck_all_children(children[i]);
+                }
+              }
+            };
+            get_children = function(branch) {
+              return branch.children;
+            };
+            // checkbox选中子节点
+            check_children = function(branch) {
+              if (branch) {
+                var children = get_children(branch);
+                if (children && children.length > 0) {
+                  for (var i = 0; i < children.length; i++) {
+                    children[i].checked = true;
+                  }
+                }
+              }
+            };
+            // checkbox选中所有子节点
+            check_all_children = function(branch) {
+              check_children(branch);
+              var children = get_children(branch);
+              if (children && children.length > 0) {
+                for (var i = 0; i < children.length; i++) {
+                  check_all_children(children[i]);
+                }
+              }
+            };
+            // 当前节点的所有子节点是否都被选中
+            is_all_children_checked = function(branch) {
+              var flag = true;
+              var children = get_children(branch);
+              if (children && children.length > 0) {
+                for (var i = 0; i < children.length; i++) {
+                  if (children[i].checked === false) {
+                    flag = false;
+                    break;
+                  }
+                }
+              }
+              return flag;
+            };
+            // 当前节点的所有子节点是否都未被选中
+            is_all_children_unchecked = function(branch) {
+              var flag = true;
+              var children = get_children(branch);
+              if (children && children.length > 0) {
+                for (var i = 0; i < children.length; i++) {
+                  if (children[i].checked === true) {
+                    flag = false;
+                    break;
+                  }
+                }
+              }
+              return flag;
+            };
+            // 父节点checkbox不选中
+            uncheck_parent = function(branch) {
+              if (branch) {
+                var parent = get_parent(branch);
+                if (parent && is_all_children_unchecked(parent)); {
+                  parent.checked = false;
+                }
+              };
+            };
+            // 所有父节点checkbox不选中
+            uncheck_all_parent = function(branch) {
+              var parent = get_parent(branch);
+              if (parent) {
+                if (is_all_children_unchecked(parent))
+                  uncheck_parent(branch);
+                uncheck_all_parent(parent);
+              }
+            };
+            get_treeData = function() {
+              return scope.treeData;
+            };
             if (scope.treeControl != null) {
               if (angular.isObject(scope.treeControl)) {
                 tree = scope.treeControl;
+                tree.check_parent = function(branch) {
+                  return check_parent(branch);
+                };
+                tree.check_all_parent = function(branch) {
+                  return check_all_parent(branch);
+                };
+                tree.uncheck_chilren = function(branch) {
+                  return uncheck_chilren(branch);
+                };
+                tree.uncheck_all_children = function(branch) {
+                  return uncheck_all_children(branch);
+                };
+                tree.check_children = function(branch) {
+                  return check_children(branch);
+                };
+                tree.check_all_children = function(branch) {
+                  return check_all_children(branch);
+                };
+                tree.is_all_children_checked = function(branch) {
+                  return is_all_children_checked(branch);
+                };
+                tree.is_all_children_unchecked = function(branch) {
+                  return is_all_children_unchecked(branch);
+                };
+                tree.uncheck_parent = function(branch) {
+                  return uncheck_parent(branch);
+                };
+                tree.uncheck_all_parent = function(branch) {
+                  return uncheck_all_parent(branch);
+                };
+                tree.get_treeData = function() {
+                  return get_treeData();
+                };
                 tree.order_up = function(branch) {
                   return order_up(branch);
                 };
@@ -808,7 +988,7 @@
                   return b;
                 };
                 tree.get_children = function(b) {
-                  return b.children;
+                  return get_children(b);
                 };
                 tree.select_parent_branch = function(b) {
                   var p;
