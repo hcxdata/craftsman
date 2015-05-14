@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('controllers').controller('IndexRoleController',
-    function($scope, $location, roleService) {
-        $scope.$on("refreshAndShowRoleListFromIndex", function(e, data) {
+    function ($scope, $location, roleService) {
+        $scope.$on("refreshAndShowRoleListFromIndex", function (e, data) {
             $scope.refresh(data.id);
         });
-        $scope.$on('getUserFromIndex', function(e, data) {
+        $scope.$on('getUserFromIndex', function (e, data) {
             $scope.user = data;
         });
-        $scope.refresh = function(userid) {
+        $scope.refresh = function (userid) {
             if (userid !== undefined)
                 $scope.tree_data = roleService.query({
                     userid: userid
@@ -22,10 +22,10 @@ angular.module('controllers').controller('IndexRoleController',
         $scope.my_tree = {};
 
         $scope.refresh();
-        $scope.save = function() {
+        $scope.save = function () {
             var data = {
-                id: $scope.user.id,
-                menus: (function() {
+                userid: $scope.user.id,
+                roles: (function () {
                     function d(data) {
                         if (data.checked === true) {
                             ids.push(data.id);
@@ -46,7 +46,7 @@ angular.module('controllers').controller('IndexRoleController',
                     return ids;
                 }())
             };
-            roleService.update(data, function() {
+            roleService.update(data, function () {
                 Fun.msg.notifyInfo();
             });
         };

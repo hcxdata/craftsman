@@ -64,8 +64,10 @@ public class SysRoleApi {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public void destory(@PathVariable Integer id) {
+        sysRoleMenuDao.deleteByRoleId(id);
         sysRoleDao.delete(id);
     }
 
