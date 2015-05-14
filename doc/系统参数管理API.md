@@ -164,7 +164,7 @@ Get /api/system/params
 
     {
     content:[
-        {"id":1,"name":"admin","code":"123",typeCode:'123',value:'123'},
+        {"id":1,"name":"admin","code":"123",typeCode:"123',value:'123'},
         ...
     ],
     "totalPages":2,
@@ -220,7 +220,7 @@ GET /api/system/params/{id}
     HTTP/1.1 200 OK
     Content-Type: application/json
 
-    {"id":17,"name":"test2","code":"1",value:'123',typeCode:"2"}
+    {"id":17,"name":"test2","code":"1",value:"123',typeCode:"2"}
 ~~~~
 
 
@@ -242,7 +242,7 @@ PUT /api/system/params/{id}
 | `id` | 必填 | id |
 | `name` | 必填 | 名称 |
 | `code` | 必填 | 编号 |
-| `code` | 必填 | 值 |
+| `value` | 必填 | 值 |
 | `typeCode` | 必填 | 类型编号 |
 
 #### 返 回 结 果
