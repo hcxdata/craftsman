@@ -17,11 +17,11 @@
           "   <tbody>\n" +
           "     <tr ng-click=\"user_select_branch(row.branch)\" ng-mouseup=\"user_mouseup_branch(row.branch, $event)\" ng-mousedown=\"user_mousedown_branch(row.branch, $event)\" ng-repeat=\"row in tree_rows | filter:{visible:true} track by row.branch.uid\"\n" +
           "       ng-class=\"'level-' + {{ row.level }} + (row.branch.selected ? ' active':'')\" class=\"tree-grid-row\">\n" +
-          "       <td><a ng-click=\"user_clicks_branch(row.branch, $event)\" ng-mousedown=\"user_clicks_down($event)\" ng-mouseup=\"user_clicks_up($event)\"><i ng-class=\"row.tree_icon\"\n" +
+          "       <td><span ng-if=\"allowExpand !== false\"><a ng-click=\"user_clicks_branch(row.branch, $event)\" ng-mousedown=\"user_clicks_down($event)\" ng-mouseup=\"user_clicks_up($event)\"><i ng-class=\"row.tree_icon\"\n" +
           "              ng-click=\"row.branch.expanded = !row.branch.expanded\"\n" +
           "              class=\"indented tree-icon\">\n" +
           "           </i>\n" +
-          "           </a>\n" +
+          "           </a></span>\n" +
           "           <label ng-if=\"row.branch.checked === true\" class=\"indented tree-checkbox\"><input ng-click=\"user_click_checkbox(row.branch,$event)\" ng-mousedown=\"user_mousedown_checkbox(row.branch,$event)\" ng-mouseup=\"user_mouseup_checkbox(row.branch,$event)\" checked type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n" +
           "           <label ng-if=\"row.branch.checked !== true\" class=\"indented tree-checkbox\"><input ng-click=\"user_click_checkbox(row.branch,$event)\" ng-mousedown=\"user_mousedown_checkbox(row.branch,$event)\" ng-mouseup=\"user_mouseup_checkbox(row.branch,$event)\" type=\"checkbox\" style=\"margin-left:9px;\" ng-show=\"{{allowCheckbox}}\" value=\"{{row.branch.id}}\"></label>\n" +
           "            <span class=\"indented tree-label\" ng-click=\"on_user_click(row.branch)\">\n" +
@@ -139,7 +139,8 @@
             initialSelection: '@',
             treeControl: '=',
             allowMove: '=',
-            allowCheckbox: '='
+            allowCheckbox: '=',
+            allowExpand: '='
           },
           link: function(scope, element, attrs) {
             if (scope.allowCheckbox !== true)
