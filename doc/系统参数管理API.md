@@ -155,6 +155,7 @@ Get /api/system/params
 | `sort` | 非必填 | 排序(ex: name,desc)|
 | `name` | 非必填 | 查询参数名称 |
 | `code` | 非必填 | 查询参数编码 |
+| `value` | 非必填 | 查询参数值 |
 
 #### 返 回 结 果
 ~~~~http
@@ -163,7 +164,7 @@ Get /api/system/params
 
     {
     content:[
-        {"id":1,"name":"admin","code":"123",typeCode:'123'},
+        {"id":1,"name":"admin","code":"123",typeCode:'123',value:'123'},
         ...
     ],
     "totalPages":2,
@@ -188,6 +189,7 @@ POST /api/system/params
 | `typeCode` | 必填 | 参数类型code |
 | `name` | 必填 | 参数名称 |
 | `code` | 必填 | 参数编码|
+| `value` | 必填 | 参数值|
 
 #### 返 回 结 果
 ~~~~http
@@ -218,7 +220,7 @@ GET /api/system/params/{id}
     HTTP/1.1 200 OK
     Content-Type: application/json
 
-    {"id":17,"name":"test2","code":"1",typeCode:"2"}
+    {"id":17,"name":"test2","code":"1",value:'123',typeCode:"2"}
 ~~~~
 
 
@@ -240,6 +242,7 @@ PUT /api/system/params/{id}
 | `id` | 必填 | id |
 | `name` | 必填 | 名称 |
 | `code` | 必填 | 编号 |
+| `code` | 必填 | 值 |
 | `typeCode` | 必填 | 类型编号 |
 
 #### 返 回 结 果
