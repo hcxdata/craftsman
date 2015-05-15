@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by lixianghui on 15-5-14.
  */
 @Entity
-@Table(name = "sys_param", schema = "", catalog = "craftsman")
+@Table(name = "sys_param")
 public class SysParamEntity {
     private int id;
     private String name;

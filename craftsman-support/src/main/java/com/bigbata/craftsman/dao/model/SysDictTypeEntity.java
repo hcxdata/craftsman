@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by lixianghui on 15-4-2.
  */
 @Entity
-@Table(name = "sys_dict_type", schema = "", catalog = "craftsman")
+@Table(name = "sys_dict_type")
 public class SysDictTypeEntity {
     private int id;
     private String name;

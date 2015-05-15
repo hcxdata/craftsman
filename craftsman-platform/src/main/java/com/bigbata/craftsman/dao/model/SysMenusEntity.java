@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by lixianghui on 15-4-21.
  */
 @Entity
-@Table(name = "sys_menus", schema = "", catalog = "craftsman")
+@Table(name = "sys_menus")
 public class SysMenusEntity {
     private int id;
     private Integer parentId;
@@ -35,10 +35,7 @@ public class SysMenusEntity {
 
     @Transient
     public boolean isLeaf() {
-        if (childCount != null && childCount > 0)
-            return false;
-        else
-            return true;
+        return !(childCount != null && childCount > 0);
     }
 
 

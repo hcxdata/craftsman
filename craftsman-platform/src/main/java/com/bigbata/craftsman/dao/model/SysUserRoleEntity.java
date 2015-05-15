@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by lixianghui on 15-5-13.
  */
 @Entity
-@Table(name = "sys_user_role", schema = "", catalog = "craftsman")
+@Table(name = "sys_user_role")
 @IdClass(SysUserRoleEntityPK.class)
 public class SysUserRoleEntity {
     private long userid;

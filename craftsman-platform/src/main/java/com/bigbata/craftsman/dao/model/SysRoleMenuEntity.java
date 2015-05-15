@@ -6,7 +6,7 @@ import javax.persistence.*;
  * Created by lixianghui on 15-5-13.
  */
 @Entity
-@Table(name = "sys_role_menu", schema = "", catalog = "craftsman")
+@Table(name = "sys_role_menu")
 @IdClass(SysRoleMenuEntityPK.class)
 public class SysRoleMenuEntity {
     private int roleid;
