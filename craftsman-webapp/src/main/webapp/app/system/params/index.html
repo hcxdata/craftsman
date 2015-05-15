@@ -52,7 +52,8 @@
                         <tr ng-repeat="paramType in page.list track by $index">
                             <td>{{paramType.code}}</td>
                             <td>{{paramType.name}}</td>
-                            <td><a ng-href="#/{{paramType.id}}/edit">修改</a> | <a ng-click="delete(paramType.id)">删除</a> |
+                            <td><a ng-href="#/{{paramType.id}}/edit">修改</a> | <a ng-click="delete(paramType.id)">删除</a>
+                                |
                                 <a ng-click="showParamList($index,paramType)">字典</a></td>
                         </tr>
                         </tbody>
@@ -78,7 +79,7 @@
                     <span class="widget-icon"> <i class="fa fa-table"></i>
                     </span>
 
-                <h2>参数列表</h2>
+                <h2>参数列表:{{typeName}}</h2>
             </header>
 
             <!-- widget div-->
