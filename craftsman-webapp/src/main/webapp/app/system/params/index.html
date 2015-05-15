@@ -1,4 +1,4 @@
-<section id="widget-grid" ng-controller="IndexDictTypeController">
+<section id="widget-grid" ng-controller="IndexParamTypeController">
     <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
              data-widget-editbutton="false">
@@ -6,7 +6,7 @@
                     <span class="widget-icon"> <i class="fa fa-table"></i>
                     </span>
 
-                <h2>字典类型列表</h2>
+                <h2>参数类型列表</h2>
             </header>
 
             <!-- widget div-->
@@ -49,11 +49,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="dictType in page.list track by $index">
-                            <td>{{dictType.code}}</td>
-                            <td>{{dictType.name}}</td>
-                            <td><a ng-href="#/{{dictType.id}}/edit">修改</a> | <a ng-click="delete(dictType.id)">删除</a> |
-                                <a ng-click="showDictList($index,dictType)">字典</a></td>
+                        <tr ng-repeat="paramType in page.list track by $index">
+                            <td>{{paramType.code}}</td>
+                            <td>{{paramType.name}}</td>
+                            <td><a ng-href="#/{{paramType.id}}/edit">修改</a> | <a ng-click="delete(paramType.id)">删除</a>
+                                |
+                                <a ng-click="showParamList($index,paramType)">字典</a></td>
                         </tr>
                         </tbody>
                     </table>
@@ -70,7 +71,7 @@
 </section>
 
 
-<section id="widget-grid1" ng-controller="IndexDictController">
+<section id="widget-grid1" ng-controller="IndexParamController">
     <article class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <div class="jarviswidget jarviswidget-color-blueDark" id="wid-id-3"
              data-widget-editbutton="false">
@@ -78,7 +79,7 @@
                     <span class="widget-icon"> <i class="fa fa-table"></i>
                     </span>
 
-                <h2>参数列表</h2>
+                <h2>参数列表:{{typeName}}</h2>
             </header>
 
             <!-- widget div-->
@@ -87,7 +88,7 @@
                     <div class="dt-toolbar">
                         <div class="col-xs-6 col-sm-12">
                             <a class="btn btn-default"
-                               ng-click="addDict(dictType.id,dictType.code)"><span
+                               ng-click="addParam(paramType.id,paramType.code)"><span
                                     class="glyphicon glyphicon-pencil"></span>添加</a>
                         </div>
                     </div>
@@ -98,19 +99,17 @@
                         <tr>
                             <th>参数代码</th>
                             <th>参数名称</th>
-                            <th>排序</th>
+                            <th>参数值</th>
                             <th>操作</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr ng-repeat="dict in page.list track by $index" class="move" data-key="{{dict.id}}">
-                            <td>{{dict.code}}</td>
-                            <td>{{dict.name}}</td>
-                            <td><a ng-click="orderUp(dict.id)">上移</a> | <a
-                                    ng-click="orderDown(dict.id)">下移</a>
-                            </td>
-                            <td><a ng-href="#/{{dict.id}}/dictEdit">修改</a> | <a
-                                    ng-click="delete(dict.id,dict.typeCode)">删除</a>
+                        <tr ng-repeat="param in page.list track by $index" class="move" data-key="{{param.id}}">
+                            <td>{{param.code}}</td>
+                            <td>{{param.name}}</td>
+                            <td>{{param.value}}</td>
+                            <td><a ng-href="#/{{param.id}}/paramEdit">修改</a> | <a
+                                    ng-click="delete(param.id,param.typeCode)">删除</a>
                             </td>
                         </tr>
                         </tbody>
