@@ -122,7 +122,8 @@
 <script src="<%=path%>/vendor/js/plugin/ng-fab-form/ng-fab-form.js"></script>
 
 <!-- tree-grid-directive -->
-<script type="text/javascript" src="<%=path%>/vendor/js/plugin/tree-grid-directive/east/tree-grid-directive.js"></script>
+<script type="text/javascript"
+        src="<%=path%>/vendor/js/plugin/tree-grid-directive/east/tree-grid-directive.js"></script>
 
 <!-- common js -->
 <script src="<%=path%>/frame/js/fun/Fun.js"></script>
@@ -132,3 +133,10 @@
 <!-- filte js-->
 <script src="<%=path%>/frame/filter/filters.js"></script>
 <script src="<%=path%>/frame/filter/dictFilter.js"></script>
+<!-- frame pagination -->
+<script src="<%=path%>/frame/plugin/paginator/Paginator.js"></script>
+<script src="<%=path%>/frame/directives/paginator/Pagination.js"></script>
+<!-- frame config -->
+<script src="<%=path%>/frame/js/web/config.js"></script>
+<!-- tree menus js-->
+<script src="<%=path%>/app/system/userMenus/app.js"></script>
