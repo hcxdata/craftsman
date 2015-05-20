@@ -1,0 +1,30 @@
+[{
+  "id": 1,
+  "parentId": 0,
+  "text": "权限管理",
+  "orders": 1,
+  "hrefTarget": "#",
+  "leaf": false,
+  "children": [{
+    "id": 2,
+    "parentId": 1,
+    "text": "用户管理",
+    "orders": 1,
+    "hrefTarget": "users#/index",
+    "leaf": true
+  }, {
+    "id": 3,
+    "parentId": 1,
+    "text": "角色管理",
+    "orders": 2,
+    "hrefTarget": "roles#/index",
+    "leaf": true
+  }, {
+    "id": 4,
+    "parentId": 1,
+    "text": "菜单管理",
+    "orders": 3,
+    "hrefTarget": "menus#/index",
+    "leaf": true
+  }]
+}]
