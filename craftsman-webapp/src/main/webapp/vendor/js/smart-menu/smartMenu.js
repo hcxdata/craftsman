@@ -71,7 +71,7 @@ angular.module("Main.directives").directive('smartMenu', function($rootScope) {
             });
 
             // click on route link
-            element.on('click', 'a', function(e) {
+            element.on('click', 'a[data-ui-sref]', function(e) {
                 // collapse all siblings to element parents and remove active markers
                 $(this)
                     .parents('li').addClass('active')

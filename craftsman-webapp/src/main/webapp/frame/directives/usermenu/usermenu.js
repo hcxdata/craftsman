@@ -18,7 +18,7 @@ angular.module("Main.directives").directive('usermenu', ['$rootScope', '$compile
 					for (var i = 0; i < data.length; i++) {
 						var li = "";
 						if(data[i].leaf === true)
-							li = $("<li><a href=\"" + data[i].hrefTarget + "\"><span>" + data[i].text + "</span></a></li>");
+							li = $("<li><a data-ui-sref href=\"" + data[i].hrefTarget + "\"><span>" + data[i].text + "</span></a></li>");
 						else
 							li = $("<li data-menu-collapse><a><span class=\"menu-item-parent\">" + data[i].text + "</span></a></li>");
 						if (data[i].children && data[i].children.length > 0)
