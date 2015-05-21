@@ -1,5 +1,6 @@
 package com.bigbata.craftsman.api.system;
 
+import com.bigbata.craftsman.api.system.service.MenusService;
 import com.bigbata.craftsman.dao.model.*;
 import com.bigbata.craftsman.dao.system.SysMenuDao;
 import com.bigbata.craftsman.dao.system.SysRoleDao;
@@ -28,6 +29,8 @@ public class SysRoleApi {
     private SysMenuDao sysMenuDao;
     @Autowired
     private SysRoleMenuDao sysRoleMenuDao;
+    @Autowired
+    private MenusService menusService;
 
     @RequestMapping(method = RequestMethod.GET)
     public Page<SysRoleEntity> index(@PageableDefault Pageable page, String name) {
@@ -78,9 +81,9 @@ public class SysRoleApi {
         //角色菜单
         List<SysRoleMenuEntity> roleMenus = sysRoleMenuDao.findByRoleid(roleId);
         //转换为checkMenus
-        List<SysMenusCheck> checkList = getCheckList(menus, roleMenus);
+        List<SysMenusCheck> checkList = menusService.getCheckList(menus, roleMenus);
         //转化为层叠结构
-        return getNestCheckList(checkList);
+        return menusService.getNestList(checkList);
     }
 
 
@@ -120,45 +123,5 @@ public class SysRoleApi {
 
 
     }
-
-    private List<SysMenusCheck> getCheckList(Iterable<SysMenusEntity> menus, List<SysRoleMenuEntity> roleMenus) {
-
-        //将角色菜单标记为check
-        List<SysMenusCheck> checkList = new ArrayList<>();
-
-        for (SysMenusEntity menu : menus) {
-            SysMenusCheck check = new SysMenusCheck();
-            BeanUtils.copyProperties(menu, check);
-            checkList.add(check);
-
-            for (SysRoleMenuEntity roleMenu : roleMenus) {
-                if (menu.getId() == roleMenu.getMenusid()) {
-                    check.setChecked(true);
-                }
-            }
-        }
-        return checkList;
-    }
-
-    private List<SysMenusCheck> getNestCheckList(List<SysMenusCheck> checkList) {
-        List<SysMenusCheck> results = new ArrayList<SysMenusCheck>();
-        Map<Integer, SysMenusCheck> map = new HashMap<Integer, SysMenusCheck>();
-        for (SysMenusCheck check : checkList) {
-            if (check.getParentId() == 0) {
-                results.add(check);
-            }
-            map.put(check.getId(), check);
-        }
-
-        for (SysMenusCheck check : checkList) {
-            if (map.get(check.getParentId()) != null) {
-                SysMenusCheck parent = map.get(check.getParentId());
-                parent.getChildren().add(check);
-            }
-        }
-
-        return results;
-    }
-
 
 }

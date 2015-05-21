@@ -1,6 +1,8 @@
 package com.bigbata.craftsman.dao.model;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by lixianghui on 15-4-21.
@@ -14,6 +16,7 @@ public class SysMenusEntity {
     private Integer orders;
     private String hrefTarget;
     private Long childCount;
+    List<SysMenusEntity> children = new ArrayList<SysMenusEntity>();
 
     public SysMenusEntity() {
     }
@@ -35,7 +38,16 @@ public class SysMenusEntity {
 
     @Transient
     public boolean isLeaf() {
-        return !(childCount != null && childCount > 0);
+        return !((childCount != null && childCount > 0) || (children != null && children.size() > 0));
+    }
+
+    @Transient
+    public List<SysMenusEntity> getChildren() {
+        return children;
+    }
+
+    public void setChildren(List<SysMenusEntity> children) {
+        this.children = children;
     }
 
 

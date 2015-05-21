@@ -16,6 +16,9 @@ public interface SysMenuDao extends PagingAndSortingRepository<SysMenusEntity, I
     @Query(value = "select new com.bigbata.craftsman.dao.model.SysMenusEntity(s.id ,s.parentId,text,orders,hrefTarget,(select count(1) from SysMenusEntity e where e.parentId = s.id) as childCount) from SysMenusEntity s where s.parentId = :parentId order by orders asc")
     public List<SysMenusEntity> findByParentIdOrderByOrdersAsc(@Param(value = "parentId") Integer parentId);
 
+    @Query(value = "from SysMenusEntity s where s.id in (select distinct menu.id from SysMenusEntity menu ,SysRoleMenuEntity rolemenu ,SysUserRoleEntity userrole,SysUser user  where menu.id = rolemenu.menusid and rolemenu.roleid = userrole.roleid and userrole.userid = user.id and user.id = :userId)")
+    public List<SysMenusEntity> findByUserId(@Param(value = "userId") long userId);
+
     @Query(value = "select count(s.id) from SysMenusEntity s where s.parentId = :parentId")
     public Integer getCountByParentId(@Param(value = "parentId") Integer parentId);
 

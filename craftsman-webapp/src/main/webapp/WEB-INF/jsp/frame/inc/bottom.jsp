@@ -136,6 +136,9 @@
 <!-- frame pagination -->
 <script src="<%=path%>/frame/plugin/paginator/Paginator.js"></script>
 <script src="<%=path%>/frame/directives/paginator/Pagination.js"></script>
+<script src="<%=path%>/frame/directives/usermenu/usermenu.js"></script>
+<!-- SMART MENU -->
+<script src="<%=path%>/vendor/js/smart-menu/smartMenu.js"></script>
 <!-- frame config -->
 <script src="<%=path%>/frame/js/web/config.js"></script>
 <!-- tree menus js-->

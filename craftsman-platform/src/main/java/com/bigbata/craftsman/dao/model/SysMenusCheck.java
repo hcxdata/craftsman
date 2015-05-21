@@ -8,7 +8,6 @@ import java.util.List;
  */
 public class SysMenusCheck extends SysMenusEntity {
     boolean checked = false;
-    List<SysMenusCheck> children = new ArrayList<SysMenusCheck>();
 
     public boolean isChecked() {
         return checked;
@@ -18,12 +17,5 @@ public class SysMenusCheck extends SysMenusEntity {
         this.checked = checked;
     }
 
-    public List<SysMenusCheck> getChildren() {
-        return children;
-    }
-
-    public void setChildren(List<SysMenusCheck> children) {
-        this.children = children;
-    }
 
 }
