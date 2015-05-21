@@ -73,9 +73,21 @@ angular.module('controllers', []).controller('IndexController',
             }
             return chain;
         };
+
+
+        /*
+            由于scope一直在检测treeData的变化，所以每次treeData数据变化的时候，都会触发此函数。
+            原本此处只是为了在数据加载完成时候对tree进行操作，由于treeData是一个promised对象，无法直接判断数据是否加载完毕，因此修改了插件添加了onTreeDataPromised回调函数的引用。
+            只有真正加载完毕后才可以对树进行展开操作，而且仅需要操作一次，即展开树分支的根节点.
+        */
+        var firstLoaded = false;
         // treeData首次加载完毕调用
         $scope.expand_branch_chain = function () {
-            expand_branch_level(1);
+            if(firstLoaded === false)
+            {
+                expand_branch_level(1);
+                firstLoaded = true;
+            }
         };
 
         // 根据节点条件和级别展开节点
