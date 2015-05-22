@@ -25,7 +25,7 @@
 				
 				<!-- logout button -->
 				<div id="logout" class="btn-header transparent pull-right">
-					<span> <a href="login.html" title="Sign Out" data-action="userLogout" data-logout-msg="确定退出本系统吗?"><i class="fa fa-sign-out"></i></a> </span>
+					<span> <a href="../../web/logout" title="Sign Out" data-action="userLogout" data-logout-msg="确定退出本系统吗?"><i class="fa fa-sign-out"></i></a> </span>
 				</div>
 				<!-- end logout button -->
 
