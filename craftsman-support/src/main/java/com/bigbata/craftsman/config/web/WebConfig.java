@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.bigbata.craftsman.config;
+package com.bigbata.craftsman.config.web;
 
 import java.util.List;
 
