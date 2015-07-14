@@ -1,21 +1,23 @@
 package com.bigbata.craftsman.api.system;
 
 import com.bigbata.craftsman.api.system.service.MenusService;
-import com.bigbata.craftsman.dao.model.*;
-import com.bigbata.craftsman.dao.system.SysMenuDao;
+import com.bigbata.craftsman.dao.model.SysMenusCheck;
+import com.bigbata.craftsman.dao.model.SysMenusEntity;
+import com.bigbata.craftsman.dao.model.SysRoleEntity;
+import com.bigbata.craftsman.dao.model.SysRoleMenuEntity;
 import com.bigbata.craftsman.dao.system.SysRoleDao;
 import com.bigbata.craftsman.dao.system.SysRoleMenuDao;
+import com.bigbata.craftsman.dao.system.SysMenuDao;
 import com.bigbata.craftsman.exception.ME;
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
 
 import javax.transaction.Transactional;
-import java.util.*;
+import java.util.List;
 
 /**
  * Created by lixianghui on 15-5-11.

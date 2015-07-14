@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.bigbata.craftsman.config;
+package com.bigbata.craftsman.config.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
