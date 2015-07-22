@@ -43,5 +43,5 @@ public interface SysDictDao extends PagingAndSortingRepository<SysDictEntity, In
 
     @Modifying
     @Query("delete from SysDictEntity where typeCode = :typeCode ")
-    public List<SysDictEntity> deleteByTypeCode(@Param("typeCode") String typeCode);
+    public void deleteByTypeCode(@Param("typeCode") String typeCode);
 }

@@ -16,7 +16,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.List;
 
 /**
@@ -69,7 +68,6 @@ public class SysRoleApi {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public void destory(@PathVariable Integer id) {
         sysRoleMenuDao.deleteByRoleId(id);
@@ -90,7 +88,6 @@ public class SysRoleApi {
 
 
     @RequestMapping(value = "/{roleId}/menus", method = RequestMethod.PUT)
-    @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public void updateMenus(@RequestBody RoleMenusParam param) {
         sysRoleMenuDao.deleteByRoleId(param.getRoleid());

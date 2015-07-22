@@ -25,8 +25,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.bigbata.craftsman.dao.model.SysUser;
 import com.bigbata.craftsman.dao.system.SysUserDao;
 
-import javax.transaction.Transactional;
-
 @RestController
 @RequestMapping({"/api/system/users"})
 public class SysUsersApi {
@@ -67,7 +65,6 @@ public class SysUsersApi {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public void destory(@PathVariable Long id) {
         sysUserRoleDao.deleteByUserId(id);
@@ -94,7 +91,6 @@ public class SysUsersApi {
 
 
     @RequestMapping(value = "/{userid}/roles", method = RequestMethod.PUT)
-    @Transactional
     @ResponseStatus(value = HttpStatus.OK)
     public void updateRoles(@RequestBody UserRoleParam param) {
         sysUserRoleDao.deleteByUserId(param.getUserid());

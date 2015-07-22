@@ -1,7 +1,7 @@
 /**
  *
  */
-package com.bigbata.craftsman.config.datasource;
+package com.bigbata.craftsman.config.jpa;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -10,6 +10,8 @@ import java.util.Properties;
 import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 
+import com.bigbata.craftsman.config.datasource.DataSourceConfig;
+import com.bigbata.craftsman.config.datasource.DynamicDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -33,7 +35,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @PropertySource("classpath:db.properties")
-@EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.bigbata.craftsman.dao")
 public class JPAConfig {
     @Autowired
