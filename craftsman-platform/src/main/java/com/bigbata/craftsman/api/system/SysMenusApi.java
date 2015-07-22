@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,7 +42,7 @@ public class SysMenusApi {
         menuDao.save(menu);
     }
 
-    @Transactional
+
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
     public void destory(@PathVariable Integer id) {
@@ -67,7 +66,6 @@ public class SysMenusApi {
     }
 
 
-    @Transactional
     @RequestMapping(value = "/{id}", params = {"action=order", "direction=up"}, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void up(@PathVariable Integer id) {
@@ -75,7 +73,6 @@ public class SysMenusApi {
         upOrder(menu);
     }
 
-    @Transactional
     @RequestMapping(value = "/{id}", params = {"action=order", "direction=down"}, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void down(@PathVariable Integer id) {
@@ -105,7 +102,6 @@ public class SysMenusApi {
         menuDao.save(menu);
     }
 
-    @Transactional
     @RequestMapping(value = "/{id}", params = {"action=changeParent"}, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void changeParent(@RequestBody SysMenusEntity menu) {

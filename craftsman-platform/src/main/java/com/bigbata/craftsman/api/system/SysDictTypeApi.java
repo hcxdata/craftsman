@@ -11,8 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-
 /**
  * Created by lixianghui on 15-4-2.
  */
@@ -67,7 +65,6 @@ public class SysDictTypeApi {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    @Transactional
     public void destory(@PathVariable Integer id) {
         SysDictTypeEntity type = sysDictTypeDao.findOne(id);
         sysDictDao.deleteByTypeCode(type.getCode());

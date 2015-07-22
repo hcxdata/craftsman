@@ -10,8 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
-import javax.transaction.Transactional;
-
 /**
  * Created by lixianghui on 15-4-3.
  */
@@ -64,22 +62,19 @@ public class SysDictApi {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    @Transactional
     public void destory(@PathVariable Integer id) {
         SysDictEntity tmp = sysDictDao.findOne(id);
         sysDictDao.delete(id);
         sysDictDao.upOrderFrom(tmp.getTypeCode(), tmp.getOrders());
     }
 
-    @Transactional
     @RequestMapping(value = "/{id}", params = {"action=order", "direction=up"}, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    public void up(@PathVariable Integer id) {
+    public void editUp(@PathVariable Integer id) throws Exception {
         SysDictEntity dict = sysDictDao.findOne(id);
         upOrder(dict);
     }
 
-    @Transactional
     @RequestMapping(value = "/{id}", params = {"action=order", "direction=down"}, method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
     public void down(@PathVariable Integer id) {
@@ -87,7 +82,7 @@ public class SysDictApi {
         downOrder(dict);
     }
 
-    private void upOrder(SysDictEntity dict) {
+    private void upOrder(SysDictEntity dict) throws Exception {
         //已到最上不用变更
         if (dict.getOrders() == 1) return;
         //更改向上排序内容

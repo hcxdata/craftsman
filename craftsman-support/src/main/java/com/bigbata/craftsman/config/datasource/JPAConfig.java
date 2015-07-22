@@ -33,7 +33,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  */
 @Configuration
 @PropertySource("classpath:db.properties")
-@EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.bigbata.craftsman.dao")
 public class JPAConfig {
     @Autowired

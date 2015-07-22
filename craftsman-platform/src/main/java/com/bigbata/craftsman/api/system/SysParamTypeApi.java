@@ -11,8 +11,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
-import javax.transaction.Transactional;
-
 /**
  * Created by lixianghui on 15-5-15.
  */
@@ -53,7 +51,6 @@ public class SysParamTypeApi {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     @ResponseStatus(value = HttpStatus.OK)
-    @Transactional
     public void edit(@RequestBody SysParamTypeEntity sysParamTypeEntity) {
         SysParamTypeEntity tmp = sysParamTypeDao.findOne(sysParamTypeEntity.getId());
         if (!tmp.getCode().equals(sysParamTypeEntity.getCode())) {
@@ -74,7 +71,6 @@ public class SysParamTypeApi {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    @Transactional
     public void destory(@PathVariable Integer id) {
         SysParamTypeEntity sysParamTypeEntity = sysParamTypeDao.findOne(id);
         sysParamDao.delByTypeCode(sysParamTypeEntity.getCode());

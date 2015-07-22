@@ -10,8 +10,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.http.HttpStatus;
 
-import javax.transaction.Transactional;
-
 
 /**
  * Created by lixianghui on 15-5-15.
@@ -67,7 +65,6 @@ public class SysParamApi {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     @ResponseStatus(value = HttpStatus.OK)
-    @Transactional
     public void destory(@PathVariable Integer id) {
         sysParamDao.delete(id);
     }
