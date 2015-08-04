@@ -115,6 +115,18 @@
             <artifactId>p6spy</artifactId>
             <version>2.1.2</version>
         </dependency>
+	<!-- My Batis -->
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis</artifactId>
+	    <version>${mybatis-version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.mybatis</groupId>
+	    <artifactId>mybatis-spring</artifactId>
+	    <version>1.2.2</version>
+	    <type>jar</type>
+	</dependency>
         <!-- JPA-DATA -->
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -171,6 +183,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring-version>4.1.2.RELEASE</spring-version>
+        <mybatis-version>3.3.0</mybatis-version>
         <jetty.version>9.2.5.v20141112</jetty.version>
         <jetty.jsp.version>9.2.5.v20141112</jetty.jsp.version>
         <logback.version>1.1.1</logback.version>

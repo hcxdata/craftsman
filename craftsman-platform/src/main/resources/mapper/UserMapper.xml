@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.bigbata.craftsman.dao.UserMapper">
+    <select id="getAllUsers" resultType="SysUser">
+        select id,name,password,realName from sys_user
+        <where>
+            <if test="name!= null">
+                name like '${name}'
+            </if>
+        </where>
+    </select>
+    <update id="update" parameterType="SysUser">
+        update sys_user set name=#{name},password=#{password},realName=#{realName} where id = #{id}
+    </update>
+</mapper>
