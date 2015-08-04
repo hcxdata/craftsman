@@ -19,3 +19,6 @@ app.log
 *.ipr
 *.iws
 target/
+
+/META-INF/persistence.xml
+/src/*

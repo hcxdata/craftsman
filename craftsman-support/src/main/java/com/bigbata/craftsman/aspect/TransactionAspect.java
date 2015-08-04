@@ -20,7 +20,7 @@ public class TransactionAspect {
     @Bean
     public Pointcut transPointCut() {
         AspectJExpressionPointcut pointcut = new AspectJExpressionPointcut();
-        pointcut.setExpression("execution(* com.bigbata.craftsman.api..*.*(..))");
+        pointcut.setExpression("(execution(* com.bigbata.craftsman.api..*.*(..))) or (execution(* com.bigbata.craftsman.bean..*.*(..)))");
         return pointcut;
     }
 

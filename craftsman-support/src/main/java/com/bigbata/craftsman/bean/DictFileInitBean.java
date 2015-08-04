@@ -31,7 +31,6 @@ public class DictFileInitBean {
     @Autowired
     private SysDictDao sysDictDao;
 
-    @PostConstruct
     public void init() throws IOException {
         //创建文件
         res = createFile();
