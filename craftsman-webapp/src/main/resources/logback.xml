@@ -20,6 +20,10 @@
     <appender-ref ref="STDOUT" />
 	<appender-ref ref="FILE" />
   </logger>
+
+  <!-- 显示Mybatis的SQL -->
+  <logger name="com.bigbata.craftsman.dao.mybatis.support" level="DEBUG"/>
+  <logger name="com.bigbata.craftsman.dao" level="debug"/>
   
   <root level="INFO">
     <appender-ref ref="STDOUT" />
