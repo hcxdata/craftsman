@@ -16,6 +16,8 @@ import java.util.List;
 public interface SysRoleMenuDao extends PagingAndSortingRepository<SysRoleMenuEntity, SysRoleMenuEntityPK> {
     public List<SysRoleMenuEntity> findByRoleid(Integer roleid);
 
+    public List<SysRoleMenuEntity> findByMenusid(Integer menusid);
+
     @Modifying
     @Query("delete from SysRoleMenuEntity where roleid = :roleId")
     public void deleteByRoleId(@Param("roleId") Integer roleId);

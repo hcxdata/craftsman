@@ -3,9 +3,7 @@ package com.bigbata.craftsman.page;
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.FilenameFilter;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by lixianghui on 15-3-4.
@@ -113,6 +111,7 @@ public class PageWarp {
     private List<String> cssArray;//本地css文件名称
 
     public List<String> getJsPathArray() {
+        Collections.sort(jsPathArray);
         return jsPathArray;
     }
 
@@ -131,33 +130,33 @@ public class PageWarp {
     private List<String> jsPathArray = new ArrayList<>();//js文件路径
     private List<String> cssPathArray = new ArrayList<>();//css文件路径
 
-    public PageWarp(HttpServletRequest request){
+    public PageWarp(HttpServletRequest request) {
         this.request = request;
         this.uri = request.getRequestURI();
         this.rootPath = request.getContextPath();
-        this.viewPath = uri.substring(rootPath.length(),uri.length());
-        if(this.viewPath.startsWith("/web")){
-            this.viewPath = "/app"+this.viewPath.substring(4,this.viewPath.length());
+        this.viewPath = uri.substring(rootPath.length(), uri.length());
+        if (this.viewPath.startsWith("/web")) {
+            this.viewPath = "/app" + this.viewPath.substring(4, this.viewPath.length());
         }
         this.localRootPath = request.getSession().getServletContext().getRealPath("");
         this.localPath = this.localRootPath + this.viewPath;
         loadFiles();
     }
-    
-    public void loadFiles(){
+
+    public void loadFiles() {
         File file = new File(this.localPath);
-        if(file.exists() && file.isDirectory()){
+        if (file.exists() && file.isDirectory()) {
             jsArray = Arrays.asList(file.list(jsFileNameFilter));
-            cssArray= Arrays.asList(file.list(cssFileNameFilter));
+            cssArray = Arrays.asList(file.list(cssFileNameFilter));
         }
-        if(jsArray!=null && jsArray.size()>0){
-            for(String js : jsArray){
-                jsPathArray.add(viewPath+"/"+js);
+        if (jsArray != null && jsArray.size() > 0) {
+            for (String js : jsArray) {
+                jsPathArray.add(viewPath + "/" + js);
             }
         }
-        if(cssArray!=null && cssArray.size()>0){
-            for(String css : cssArray){
-                cssPathArray.add(viewPath+"/"+css);
+        if (cssArray != null && cssArray.size() > 0) {
+            for (String css : cssArray) {
+                cssPathArray.add(viewPath + "/" + css);
             }
         }
     }
