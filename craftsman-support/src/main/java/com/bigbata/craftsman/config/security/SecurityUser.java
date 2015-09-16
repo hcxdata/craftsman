@@ -9,57 +9,56 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * 自定义用户类，用于提供系统进行安全验证的用户信息
+ */
 
 public class SecurityUser extends SysUser implements UserDetails {
 
-	private static final long serialVersionUID = -6993005649423382897L;
+    private static final long serialVersionUID = -6993005649423382897L;
+    private Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>();
 
-	public SecurityUser(SysUser user) {
-		BeanUtils.copyProperties(user, this);
-	}
+    public SecurityUser(SysUser user) {
+        BeanUtils.copyProperties(user, this);
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> authorities = new ArrayList<GrantedAuthority>() {
-			{
-				add(new SimpleGrantedAuthority("ADMIN"));
-			}
-		};
-		return authorities;
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return authorities;
+    }
 
-	@Override
-	public String getPassword() {
-		return super.getPassword();
-	}
+    public void addAuthority(String roleId) {
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + roleId));
+    }
 
-	@Override
-	public String getUsername() {
-		return super.getName();
-	}
+    @Override
+    public String getPassword() {
+        return super.getPassword();
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public String getUsername() {
+        return super.getName();
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		// TODO Auto-generated method stub
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+        return true;
+    }
 
 }

@@ -34,6 +34,7 @@ public class AuthFailureHandler extends SimpleUrlAuthenticationFailureHandler {
 			writer.flush();
 
 		} else {
+			super.setDefaultFailureUrl("/web/login/form?error");
 			super.onAuthenticationFailure(request, response, exception);
 		}
 	}
