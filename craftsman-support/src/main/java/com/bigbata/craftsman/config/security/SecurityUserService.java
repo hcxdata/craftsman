@@ -2,13 +2,12 @@ package com.bigbata.craftsman.config.security;
 
 import com.bigbata.craftsman.dao.model.SysUser;
 import com.bigbata.craftsman.dao.model.SysUserRoleEntity;
+import com.bigbata.craftsman.dao.system.SysUserDao;
 import com.bigbata.craftsman.dao.system.SysUserRoleDao;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
-
-import com.bigbata.craftsman.dao.system.SysUserDao;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -28,6 +27,9 @@ public class SecurityUserService implements UserDetailsService {
     public UserDetails loadUserByUsername(String username)
             throws UsernameNotFoundException {
         SysUser user = userDao.findUserByName(username);
+
+        if (user == null) throw new UsernameNotFoundException(username + " not found");
+
         List<SysUserRoleEntity> userRoles = sysUserRoleDao.findByUserid(user.getId());
         SecurityUser secUser = new SecurityUser(user);
         for (SysUserRoleEntity userRole : userRoles) {
