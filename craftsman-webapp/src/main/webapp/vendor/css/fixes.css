@@ -630,4 +630,9 @@ a[ng-click]:hover {
 .menu-on-top aside#left-panel .collapse-sign {
   display: none; }
 
+.fixed-navigation nav > ul {
+  padding-right: 0px;
+  width: 100%;
+}
+
   
