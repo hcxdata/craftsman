@@ -3,23 +3,17 @@
  */
 package com.bigbata.craftsman.config.dataconfig;
 
-import java.util.Properties;
-
-import javax.persistence.EntityManagerFactory;
-import javax.sql.DataSource;
-
 import com.bigbata.craftsman.config.datasource.DataSourceConfig;
 import com.bigbata.craftsman.config.datasource.DynamicDataSource;
 import com.bigbata.craftsman.dao.mybatis.OffsetLimitInterceptor;
+import com.googlecode.flyway.core.Flyway;
 import org.apache.ibatis.plugin.Interceptor;
-import org.apache.ibatis.transaction.managed.ManagedTransactionFactory;
 import org.mybatis.spring.SqlSessionFactoryBean;
 import org.mybatis.spring.annotation.MapperScan;
-import org.mybatis.spring.transaction.SpringManagedTransactionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
+import org.springframework.context.annotation.DependsOn;
 import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
@@ -31,6 +25,10 @@ import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
 import org.springframework.transaction.PlatformTransactionManager;
+
+import javax.persistence.EntityManagerFactory;
+import javax.sql.DataSource;
+import java.util.Properties;
 
 /**
  * 类说明:<br>
@@ -57,11 +55,13 @@ public class DataConfig {
 
     //jpa 的配置
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
+    @DependsOn({"flyway"})
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory(DataSource dataSource) {
+
         DataSourceConfig config = dataSourceConfig();
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
-        em.setDataSource(dataSource());
+        em.setDataSource(dataSource);
         em.setPackagesToScan(new String[]{"com.bigbata.craftsman.dao.model"});
 
         JpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
@@ -96,6 +96,7 @@ public class DataConfig {
 
     //MyBatis的配置
     @Bean
+    @DependsOn({"flyway"})
     public DataSourceTransactionManager dataSourceTransactionManager() {
         return new DataSourceTransactionManager(dataSource());
     }
@@ -118,5 +119,17 @@ public class DataConfig {
         Properties pro = new Properties();
         pro.put("dialectClass", "com.bigbata.craftsman.dao.mybatis.dialect.MySQLDialect");
         return pro;
+    }
+
+    //flyway配置
+    @Bean
+    @DependsOn({"dataSource"})
+    public Flyway flyway(DataSource dataSource) {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(dataSource);
+        flyway.setInitOnMigrate(true);
+        flyway.migrate();
+
+        return flyway;
     }
 }
